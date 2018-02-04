@@ -87,11 +87,13 @@ class UsuariosController extends Controller
         if ($user->type == 'alumno'){
             //buscamos el curso al cual pertenece el alumno    
             $cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
+            $asignaturasAlumno =  DB::select("SELECT ga.*, g.descripcion, a.descripcion as asigAlum FROM grupo_asignatura ga, grupo g, asignatura a, alumno_grupo u WHERE g.id = ga.id_grupo AND a.id= ga.id_asignatura and ga.id_grupo= u.id_grupo and u.id_alumno = $id"); 
 
     
         }else{
 
             $cursoAlumno = null;
+            $asignaturasAlumno = null;
         }
 
          $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
@@ -100,7 +102,7 @@ class UsuariosController extends Controller
 
          $cursos = DB::select("SELECT * from grupo");
 
-    	return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos);
+    	return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
 
        
         
@@ -133,10 +135,12 @@ class UsuariosController extends Controller
             //buscamos el curso al cual pertenece el alumno    
             $cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
 
+            $asignaturasAlumno =  DB::select("SELECT ga.*, g.descripcion, a.descripcion as asigAlum FROM grupo_asignatura ga, grupo g, asignatura a, alumno_grupo u WHERE g.id = ga.id_grupo AND a.id= ga.id_asignatura and ga.id_grupo= u.id_grupo and u.id_alumno = $id");   
     
         }else{
 
             $cursoAlumno = null;
+            $asignaturasAlumno =  null;
         }
 
          $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
@@ -145,7 +149,7 @@ class UsuariosController extends Controller
 
          $cursos = DB::select("SELECT * from grupo");
 
-        return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos);
+        return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
 
        
         
