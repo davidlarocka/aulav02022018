@@ -32,4 +32,17 @@ Modificar Curso
 
  </div>
 
+
+ <br/>
+   <ul class="list-group" > 
+    <li class="list-group-item active"> 
+      <h4><span class="glyphicon glyphicon-book"></span> Asignaturas que cursa</h4>
+    </li>
+    @foreach($asignaturas as $a)
+          <li class="list-group-item">
+            {{ $a->nombre_asig }}
+          </li>    
+      @endforeach
+    </ul> 
+
 @endsection
