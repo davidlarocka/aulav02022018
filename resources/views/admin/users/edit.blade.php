@@ -13,7 +13,27 @@ Crear Usuario
 {!! Form::open(['route' => ['users.update',$user], 'method' => 'PUT']) !!}
 <!--{!! Form::open(['method' => 'PATCH', 'action' => ['UsuariosController@update', $user->id], 'files' => true]) !!} -->
 
-
+  
+  @if ($user->type  == 'admin')
+    <center>
+     <img src="{{ URL::to('/') }}/images_n/admin_icon.png" style="width: 100px" />
+      <a class="btn btn-danger"> Administrador</a>
+      <br/>
+     </center> 
+  @elseif ($user->type  == 'profesor')
+      <center>
+       <img src="{{ URL::to('/') }}/images_n/profesor_icon.png" style="width: 100px" />
+        <a class="btn btn-info"> Profesor</a>
+        <br/>
+     </center>
+  @else
+      <center>
+     <img src="{{ URL::to('/') }}/images_n/alumno_icon.png" style="width: 100px" />
+      <a class="btn btn-success"> Alumno</a>
+      <br/>
+     </center>
+  @endif
+ 
   <div class="form-group">
 
      {!! Form::label('name','Nombre')!!}
