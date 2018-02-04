@@ -164,6 +164,11 @@ $('.selector button').click(function(e) {
     toggleOptions($(this).parent());
 });
 
+
+$('#guardar_curso').click(function(e) {
+   alert("--->");
+});
+
 setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
 </script>
 @endsection
