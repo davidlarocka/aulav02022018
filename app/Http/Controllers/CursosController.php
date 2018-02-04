@@ -65,7 +65,13 @@ class CursosController extends Controller
    public function edit($id)
     {
    $cursos = Curso::find($id);
-    	return view('admin.cursos.edit')->with('curs', $cursos);
+
+   //listar asignaturas de este curso
+   $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
+            a.id= pa.id_asignatura AND
+            g.id = pa.id_grupo AND id_grupo= $id");
+
+    	return view('admin.cursos.edit')->with('curs', $cursos)->with('asignaturas', $asignaturas);
         
     }   
 
