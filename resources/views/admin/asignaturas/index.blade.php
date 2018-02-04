@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <select name="asignaturas" id="asignaturas" onchange="asignatura()">
   <option value="0" selected>Seleccione una asignatura...</option>  
   @foreach($asignaturas as $asignatura)
