@@ -77,6 +77,11 @@ Auth::routes();
             'uses'  =>  'UsuariosController@deleteProfesorCurso',
             'as'    =>   'UsuariosController.deleteProfesorCurso'
         ]);
+
+        Route::get('users/{id}/{id_curso}/saveCurso',[
+            'uses'  =>  'UsuariosController@saveCurso',
+            'as'    =>   'UsuariosController.saveCurso'
+        ]);
 });
 
     Route::resource('asignatura_admin', 'Asignatura_adminController');
