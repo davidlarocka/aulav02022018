@@ -58,7 +58,7 @@ class UsuariosController extends Controller
          //dd($user);
         //dd('Usuario Creado');
         Flash::success("se  ha registrado a ". $user->name ." de forma exitosa!");
-        return redirect()->route('users.index');  
+        return redirect()->route('users.edit', $user->id); 
 
     }
 
