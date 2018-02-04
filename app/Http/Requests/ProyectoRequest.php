@@ -25,7 +25,7 @@ class ProyectoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_proyecto' => 'bail|min:6|max:250|required',   //vas indicando cada campo como quieres que se valide
+            'nombre_proyecto' => 'min:6|max:250|required',   //vas indicando cada campo como quieres que se valide
             //'nombre_proyecto' => 'min:6|max:250|required',   //vas indicando cada campo como quieres que se valide
             'descripcion' => 'min:10|required',
             'fecha_publicacion' => 'nullable|date',

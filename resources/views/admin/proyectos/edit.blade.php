@@ -5,7 +5,7 @@
 
 <div class="panel-group">
   <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto">
+    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto" style="cursor:pointer">
       <h4 class="panel-title" >
         <a>Actualización de proyecto</a>
       </h4>
@@ -47,7 +47,7 @@
               </div>
               <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
-                  <button type="submit" class="btn btn-success left">Publicar</button>
+                  <button type="submit" class="btn btn-success left">Editar</button>
                 </div> 
               </div> 
           </div>        
@@ -59,7 +59,7 @@
 </div>
 <div class="panel-group">
   <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#alumnos">
+    <div class="panel-heading" data-toggle="collapse" href="#alumnos" style="cursor:pointer">
       <h4 class="panel-title" >
         <a>Listado de alumnos</a>
       </h4>
