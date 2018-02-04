@@ -51,7 +51,7 @@ Crear Usuario
 
   <div class="form-group">
 
-  		{!! Form::label('type','Tipo') !!}
+  		{!! Form::label('type','Cambiar tipo de usuario') !!}
       {!! Form::select('type', ['alumno' => 'alumno', 'profesor' => 'profesor', 'admin' => 'Administrador'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opción..', 'required']) !!}
   	
 
