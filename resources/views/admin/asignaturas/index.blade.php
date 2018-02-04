@@ -38,7 +38,7 @@
       <label for='c5' class="fa fa-file-text fa" onclick="ir(5)"><p>Guías</p></label>
     </li>
   </ul>
-  <button id="btitulo">Asignatura no seleccionada</button>
+  <button id="btitulo" style="background:#68dff0;">Asignatura no seleccionada</button>
 
 </div>
 <input id='cerrado' type='hidden'>
