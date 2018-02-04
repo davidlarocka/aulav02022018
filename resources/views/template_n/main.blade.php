@@ -233,7 +233,7 @@ label {
 
   <!--script for this page-->
   <script src="{{ asset('plantilla/Theme/assets/js/sparkline-chart.js')}}"></script>    
-  <script src="{{ asset('plantilla/Theme/assets/js/zabuto_calendar.js')}}"></script>
+  <script src="{{ asset('plantilla/Theme/assets/js/zabuto_calendar.min.js')}}"></script>
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -278,8 +278,15 @@ label {
     */
     ///*
     var eventData = [
-      {"date":"2018-01-17","badge":false,"title":"Proyecto prueba"},
-      {"date":"2018-01-15","badge":true,"title":"Proyecto prueba 2"}
+      /*foreach($proyectos as $proyecto){
+        {"date":"'".$proyecto->fecha_entrega."'","badge":true,"title":"'".$proyecto->nombre_proyecto."'"},  
+      }*/
+
+      @foreach($proyectos as $proyecto)        
+        {"date":"{{$proyecto->fecha_entrega}}","badge":true,"title":"{{$proyecto->nombre_proyecto}}"},
+      @endforeach
+      /*{"date":"2018-02-17","badge":true,"title":"Proyecto prueba"},
+      {"date":"2018-02-15","badge":true,"title":"Proyecto prueba 2"},*/
     ];
     $(document).ready(function () {
       $("#date-popover").popover({html: true, trigger: "manual"});
@@ -301,10 +308,10 @@ label {
           modal: true
         },
         legend: [
-          {type: "text", label: "Proyectos del mes", badge: "00"},
-          {type: "block", label: "Regular event", }
+          {type: "text", label: "Proyectos del mes", badge: "{{$cantPro}}"},
+          //{type: "block", label: "Regular event", }
         ],
-        today: true,
+        //today: true,
         //------------------Inicio de configuración---------------------
         language: "es"
         //---------------------------------------------------                

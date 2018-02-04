@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
+use DB;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,16 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
        view::composer(['front.index'],'App\Http\ViewComposer\AsideComposer');
+       //view::composer(['*'],'App\Http\ViewComposer\GlobalComposer');
+        view()->composer('*', function ($view) 
+        {
+            $mes=date('m');        
+            $id_usuario = Auth::id();
+            $cantPro=DB::table('proyectos')->whereMonth('fecha_entrega','=',$mes)->where('id_profesor','=',$id_usuario)->count();
+            $proyectos = DB::table('proyectos')->where('id_profesor','=',$id_usuario)->get();
+            //dd($proyectos);
+            $view->with('cantPro', $cantPro)->with('proyectos', $proyectos);    
+        });
     }
 
     /**

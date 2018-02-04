@@ -22,6 +22,7 @@ class ProyectosController extends Controller
         $grupo = DB::table('grupo')->where('id', '=', $idA[1])->get();
         
         $proyectosPE = DB::table('proyectos')
+            ->where('id_profesor','=',$id_usuario)
             ->where('id_asignatura','=',$idA[0])
             ->where('id_grupo','=',$idA[1])
             ->where('fecha_entrega','>=',$hoy)
@@ -29,6 +30,7 @@ class ProyectosController extends Controller
             ->paginate(10);
 
         $proyectosPF = DB::table('proyectos')
+            ->where('id_profesor','=',$id_usuario)
             ->where('id_asignatura','=',$idA[0])
             ->where('id_grupo','=',$idA[1])
             ->where('fecha_entrega','<',$hoy)
@@ -110,6 +112,7 @@ class ProyectosController extends Controller
 
         $proyectos = new proyectos($request->all());
         $proyectos->archivo = $name;
+        $proyectos->id_profesor = Auth::id();
         $proyectos->url = $urltube;
         $proyectos->fecha_publicacion = $hoy;
         $proyectos->save();

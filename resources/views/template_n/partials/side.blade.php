@@ -203,7 +203,7 @@
                       </a>
                   </li>
 
-                  @if( $tipo_usuario =='profesor') 
+                  @if( strtoupper(Auth::user()->type) =='PROFESOR') 
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
