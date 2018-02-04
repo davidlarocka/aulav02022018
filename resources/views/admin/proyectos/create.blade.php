@@ -7,7 +7,7 @@
 
 <div class="panel-group">
   <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto">
+    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto" style="cursor:pointer">
       <h4 class="panel-title" >
         <a>Ingreso de nuevo proyecto</a>
       </h4>
@@ -51,7 +51,7 @@
               </div>
               <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
-                  <button type="submit" class="btn btn-success left">Editar</button>
+                  <button type="submit" class="btn btn-success left">Publicar</button>
                 </div> 
               </div> 
           </div>       
@@ -63,7 +63,7 @@
 </div>
 <div class="panel-group">
   <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#alumnos">
+    <div class="panel-heading" data-toggle="collapse" href="#alumnos" style="cursor:pointer">
       <h4 class="panel-title" >
         <a>Listado de alumnos</a>
       </h4>
@@ -71,13 +71,23 @@
     <div id="alumnos" class="panel-collapse collapse">
       <div class="panel-body">
       <!--Inicio tabla de alumnos en el proyecto-->
-        
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="cb1" value="option1" checked> Bruce Wayne
+        </label>
+        <label>
+          <input type="checkbox" id="cb2" value="option2" checked> Arthur Curry
+        </label>
+        <label>
+          <input type="checkbox" id="cb3" value="option3" checked> Diana Prince
+        </label>
+      </div>
       <!--Fin-->
       </div>
     </div>
   </div>
 </div>
-
+<a href="{!! url('admin/proyectos'); !!}/{{$id_a}},{{$id_g}}">Volver a tablas de proyectos</a>
 
 
 <!--<div class="title">
