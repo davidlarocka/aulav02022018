@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-02-04 15:59:19
+Date: 2018-02-04 19:17:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -50,21 +50,6 @@ INSERT INTO `alumno` VALUES ('17', '13', '2018-01-28 00:00:00', '2018-01-28 00:0
 INSERT INTO `alumno` VALUES ('18', '14', '2018-01-28 00:00:00', '2018-01-28 00:00:00');
 
 -- ----------------------------
--- Table structure for alumno_asignatura
--- ----------------------------
-DROP TABLE IF EXISTS `alumno_asignatura`;
-CREATE TABLE `alumno_asignatura` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of alumno_asignatura
--- ----------------------------
-
--- ----------------------------
 -- Table structure for alumno_grupo
 -- ----------------------------
 DROP TABLE IF EXISTS `alumno_grupo`;
@@ -72,12 +57,19 @@ CREATE TABLE `alumno_grupo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `id_alumno` int(11) NOT NULL,
+  `id_grupo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of alumno_grupo
 -- ----------------------------
+INSERT INTO `alumno_grupo` VALUES ('1', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '1', '5');
+INSERT INTO `alumno_grupo` VALUES ('2', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '2', '5');
+INSERT INTO `alumno_grupo` VALUES ('3', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '26', '5');
+INSERT INTO `alumno_grupo` VALUES ('4', '2018-02-04 00:00:00', '2018-02-04 00:00:00', '27', '5');
+INSERT INTO `alumno_grupo` VALUES ('5', null, null, '3', '5');
 
 -- ----------------------------
 -- Table structure for asignatura
@@ -160,6 +152,24 @@ INSERT INTO `grupo` VALUES ('11', '6° básico A', '2018-01-19 13:28:14', '2018-
 INSERT INTO `grupo` VALUES ('12', '6° básico B', '2018-01-19 13:28:30', '2018-01-19 13:28:30');
 
 -- ----------------------------
+-- Table structure for grupo_asignatura
+-- ----------------------------
+DROP TABLE IF EXISTS `grupo_asignatura`;
+CREATE TABLE `grupo_asignatura` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_grupo` int(11) NOT NULL,
+  `id_asignatura` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of grupo_asignatura
+-- ----------------------------
+INSERT INTO `grupo_asignatura` VALUES ('1', '5', '1', '2018-02-04 00:00:00', '2018-02-04 00:00:00');
+
+-- ----------------------------
 -- Table structure for img_user
 -- ----------------------------
 DROP TABLE IF EXISTS `img_user`;
@@ -172,7 +182,7 @@ CREATE TABLE `img_user` (
   PRIMARY KEY (`id`),
   KEY `img_user_user_id_foreign` (`user_id`),
   CONSTRAINT `img_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of img_user
@@ -182,6 +192,7 @@ INSERT INTO `img_user` VALUES ('2', 'imag_1516369585.jpg', '5', '2018-01-19 13:4
 INSERT INTO `img_user` VALUES ('3', 'imag_1517173575.pdf', '31', '2018-01-28 21:06:15', '2018-01-28 21:06:15');
 INSERT INTO `img_user` VALUES ('4', 'imag_1517699368.jpg', '32', '2018-02-03 23:09:28', '2018-02-03 23:09:28');
 INSERT INTO `img_user` VALUES ('5', 'imag_1517708861.jpg', '33', '2018-02-04 01:47:41', '2018-02-04 01:47:41');
+INSERT INTO `img_user` VALUES ('7', 'imag_1517781653.jpg', '35', '2018-02-04 22:00:53', '2018-02-04 22:00:53');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -341,25 +352,25 @@ INSERT INTO `profesor_grupo` VALUES ('4', null, null, '2', '3');
 DROP TABLE IF EXISTS `proyectos`;
 CREATE TABLE `proyectos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `id_alumnos` text NOT NULL,
-  `id_grupo` int(11) NOT NULL,
-  `id_asignatura` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id_alumno_grupo` int(11) NOT NULL,
+  `id_grupo_asignatura` int(11) NOT NULL,
+  `id_profesor` int(11) NOT NULL,
   `nombre_proyecto` varchar(30) NOT NULL,
   `descripcion` varchar(250) NOT NULL,
-  `fecha_publicacion` date NOT NULL,
   `fecha_entrega` date NOT NULL,
   `archivo` varchar(30) NOT NULL,
   `url` varchar(150) NOT NULL,
   `observaciones` varchar(150) NOT NULL,
   `created_at` date NOT NULL,
-  `updateat` date NOT NULL,
+  `update_at` date NOT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of proyectos
 -- ----------------------------
+INSERT INTO `proyectos` VALUES ('1', '1', '1', '2', 'proyecto prueba', 'hacer pruebas para los proyectos', '2018-02-14', '', '', 'ninguna', '2018-02-04', '2018-02-04');
+INSERT INTO `proyectos` VALUES ('2', '2', '1', '2', 'proyecto prueba 2', 'hacer pruebas para los proyectos', '2018-02-14', '', '', 'ninguna', '2018-02-04', '2018-02-04');
 
 -- ----------------------------
 -- Table structure for prueba
@@ -473,14 +484,14 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Nelson Castellanoss', '', '', '', '', '', '', '', '0000-00-00', 'nelsoncastellanos605@gmail.com', 'admin', '$2y$10$ludyHVIN9q8JwQA5tP.uV.gvvN3TfOBROngZh6brxqfUN0FmBzmf2', 'Yo2K2lzgj8Xeh5pU0ueZOTtBM47Z32MYJF4rvaIDxYvysmB4O5O7k2WQkRD6', '2017-11-17 10:35:15', '2018-01-28 18:27:36');
-INSERT INTO `users` VALUES ('2', 'david garcia', '', '', '', '', '', '', '', '0000-00-00', 'david@gmail.com', 'profesor', '$2y$10$L8/DAX89015O6bIsxpXr7u2AO4JgXECWyqs0OuEIccRK1mPNBlP/2', 'GH4EOplUYMa4lEHfEAyTRilwVKeh0CBs4aACw3jYoCfb8G0jRbBMQUXkr56G', '2017-12-30 15:47:27', '2018-01-19 13:34:25');
-INSERT INTO `users` VALUES ('3', 'Manuel Guevara', '', '', '', '', '', '', '', '0000-00-00', 'manuel@gmail.com', 'alumno', '$2y$10$cb.JKJKfSLf1TCDcSGULmueHLYVyow3cm6F0iDaUW17P.C5u3/TUm', 'ZXcYqhRCnuZ422v8jjm1pgOryXSxj7UPozykCULghGgNvQpnjQ7zrBIJ2XMI', '2018-01-14 11:40:23', '2018-01-14 11:40:23');
+INSERT INTO `users` VALUES ('1', 'Nelson Castellanoss', '', '', '', '', '', '', '', '0000-00-00', 'nelsoncastellanos605@gmail.com', 'admin', '$2y$10$ludyHVIN9q8JwQA5tP.uV.gvvN3TfOBROngZh6brxqfUN0FmBzmf2', 'k4PEDvZ7Np8TFBnRLFS1e9cYUJT0VWNrsm5JWjQSo5kjqhg1kNJex8kBoYIq', '2017-11-17 10:35:15', '2018-01-28 18:27:36');
+INSERT INTO `users` VALUES ('2', 'david garcia', '', '', '', '', '', '', '', '0000-00-00', 'david@gmail.com', 'profesor', '$2y$10$L8/DAX89015O6bIsxpXr7u2AO4JgXECWyqs0OuEIccRK1mPNBlP/2', 'CPq7TDeFyqBgVueo5gMrj5kB4bPnMmnSQUDZ2tUVeTu6FA6aHPSNJSXL97qp', '2017-12-30 15:47:27', '2018-01-19 13:34:25');
+INSERT INTO `users` VALUES ('3', 'Manuel Guevara', '', '', '', '', '', '', '', '0000-00-00', 'manuel@gmail.com', 'alumno', '$2y$10$cb.JKJKfSLf1TCDcSGULmueHLYVyow3cm6F0iDaUW17P.C5u3/TUm', 'VdW9P8fVO1rhso58zRkYFyxRUodXniRhAOROIIWjRrFNTI23kvb0lOkt1Cnd', '2018-01-14 11:40:23', '2018-01-14 11:40:23');
 INSERT INTO `users` VALUES ('5', 'prueba', '', '', '', '', '', '', '', '0000-00-00', 'prueba@gmail.com', 'profesor', '$2y$10$c37Zv7itTsHvMIJZ1p3w0uWxhTxRAezvVaYwnKcE42SbwJ5A8ScJG', '57dq3aiRr7x98S4oUgnpLn6I3pl2idGKtKYMZoOlJRSiiq3yVh3tyge1ZJje', '2018-01-19 13:46:25', '2018-01-19 13:46:25');
 INSERT INTO `users` VALUES ('11', 'Cristian', '', 'Ordoñez', 'Soler', '43097-6344', '', '5419 Piña Orchard\nBurgosview, KY 35483', '47146', '1984-08-16', 'paola.sandoval@example.org', '', '$2y$10$8e5ez5ihiL9PSg.PTpIHD.4QtL6bEMj/hxxhN8T5n7Siebhxsj9OK', 'bMvyYTNumWJtext8V4Y6pdp5Az9SEyfN4sFLyjbYkcBERexIYOUwxb1Ahler', '2018-01-28 14:31:25', '2018-01-28 14:31:25');
 INSERT INTO `users` VALUES ('12', 'Marcos', '', 'Lara', 'Almanza', '94668-0470', '', '41168 Ian Points\nPort Blancafort, MI 19596', '00952', '2000-06-30', 'rdelrio@example.org', 'alumno', '$2y$10$8e5ez5ihiL9PSg.PTpIHD.4QtL6bEMj/hxxhN8T5n7Siebhxsj9OK', 'BwUxA6T3yX', '2018-01-28 14:31:25', '2018-01-28 18:27:54');
@@ -505,3 +516,4 @@ INSERT INTO `users` VALUES ('30', 'Alba', '', 'Godoy', 'Baeza', '65778', '', '77
 INSERT INTO `users` VALUES ('31', 'Juan Perez', '', '', '', '', '', '', '', '0000-00-00', 'juanperez@gmail.com', 'profesor', '$2y$10$OYYnihz5SCYhYdiXEqB2IeS3npEhH61Xu31cpALqnPwQLvGCWhF1G', null, '2018-01-28 21:06:15', '2018-01-28 21:06:15');
 INSERT INTO `users` VALUES ('32', 'prueba', '', 'perez', 'wwww', '1234567', '', 'wertj6yj', '123456', '0000-00-00', 'jose@gmail.com', 'profesor', '$2y$10$FCyaY3M6HUSUEvmDP3NNm.1PnloL1qAFDA2W0VYw6UvHauVSjR1Lq', null, '2018-02-03 23:09:28', '2018-02-03 23:09:28');
 INSERT INTO `users` VALUES ('33', 'prueba', null, 'perez', null, '1234567', '', 'wertj6yj', '1234567', null, 'prueba2@gmail.com', 'profesor', '$2y$10$W59rjqoZQG5W9H22VjG0duqv5OPVbX6PdHBBI1ScrB74DC0DbIe/a', null, '2018-02-04 01:47:41', '2018-02-04 01:47:41');
+INSERT INTO `users` VALUES ('35', 'prueba', null, 'perez6', 'wwww', '1234567', '', 'wertj6yj', '1234567', null, 'prueba6@gmail.com', 'alumno', '$2y$10$zSQYJ5Fx5PSDtVYFri/wGeeG4n4pkjwI9sWfsphDsaeky/CKeghky', null, '2018-02-04 22:00:53', '2018-02-04 22:00:53');

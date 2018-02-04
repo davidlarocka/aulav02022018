@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\CursosRequest;
 use App\Curso;
-
+use DB;
 class CursosController extends Controller
 {
 
@@ -64,8 +64,35 @@ class CursosController extends Controller
      */
    public function edit($id)
     {
-   $cursos = Curso::find($id);
-    	return view('admin.cursos.edit')->with('curs', $cursos);
+       $cursos = Curso::find($id);
+
+       //listar asignaturas de este curso
+       $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo  
+from grupo_asignatura pa,  asignatura a, grupo g where
+                a.id= pa.id_asignatura AND
+                g.id = pa.id_grupo AND id_grupo= $id");
+
+        	return view('admin.cursos.edit')->with('curs', $cursos)->with('asignaturas', $asignaturas);
+        
+    } 
+
+    public function addAsignatura($id, $id_asignatura)
+    {
+
+        //listar asignaturas de este curso
+       $add_res = DB::select("INSERT into grupo_asignatura(id_grupo, id_asignatura) values( $id, $id_asignatura)");
+
+
+
+       $cursos = Curso::find($id);
+
+       //listar asignaturas de este curso
+       $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo  
+from grupo_asignatura pa,  asignatura a, grupo g where
+                a.id= pa.id_asignatura AND
+                g.id = pa.id_grupo AND id_grupo= $id");
+
+            return view('admin.cursos.edit')->with('curs', $cursos)->with('asignaturas', $asignaturas);
         
     }   
 

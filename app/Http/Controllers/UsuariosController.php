@@ -58,7 +58,7 @@ class UsuariosController extends Controller
          //dd($user);
         //dd('Usuario Creado');
         Flash::success("se  ha registrado a ". $user->name ." de forma exitosa!");
-        return redirect()->route('users.index');  
+        return redirect()->route('users.edit', $user->id); 
 
     }
 
@@ -84,13 +84,74 @@ class UsuariosController extends Controller
     	//dd($user);
     	$user = User::find($id);
 
-         $asignaturas = DB::select("select a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
+        if ($user->type == 'alumno'){
+            //buscamos el curso al cual pertenece el alumno    
+            $cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
+            $asignaturasAlumno =  DB::select("SELECT ga.*, g.descripcion, a.descripcion as asigAlum FROM grupo_asignatura ga, grupo g, asignatura a, alumno_grupo u WHERE g.id = ga.id_grupo AND a.id= ga.id_asignatura and ga.id_grupo= u.id_grupo and u.id_alumno = $id"); 
+
+    
+        }else{
+
+            $cursoAlumno = null;
+            $asignaturasAlumno = null;
+        }
+
+         $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
             a.id= pa.id_asignatura AND
             g.id = pa.id_grupo AND id_profesor= $id");
 
-    	return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas);
+         $cursos = DB::select("SELECT * from grupo");
 
-        //return view('admin.users.edit')->with('user', $user);
+    	return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
+
+       
+        
+    }
+
+
+    
+
+    public function saveCurso($id, $id_curso)
+    {
+        //dd($user);
+        //guardamos el curso para el usuario
+        $save_cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
+
+        if(count($save_cursoAlumno) > 0){
+            //actualizamos
+            $res_save = DB::select("UPDATE alumno_grupo set id_grupo= $id_curso  WHERE id_alumno = $id");
+
+        }else{
+            //guardamos    
+            $res_save = DB::select("INSERT INTO alumno_grupo(id_alumno, id_grupo) values ($id, $id_curso)");
+
+        }
+
+
+
+        $user = User::find($id);
+
+        if ($user->type == 'alumno'){
+            //buscamos el curso al cual pertenece el alumno    
+            $cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
+
+            $asignaturasAlumno =  DB::select("SELECT ga.*, g.descripcion, a.descripcion as asigAlum FROM grupo_asignatura ga, grupo g, asignatura a, alumno_grupo u WHERE g.id = ga.id_grupo AND a.id= ga.id_asignatura and ga.id_grupo= u.id_grupo and u.id_alumno = $id");   
+    
+        }else{
+
+            $cursoAlumno = null;
+            $asignaturasAlumno =  null;
+        }
+
+         $asignaturas = DB::select("SELECT a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
+            a.id= pa.id_asignatura AND
+            g.id = pa.id_grupo AND id_profesor= $id");
+
+         $cursos = DB::select("SELECT * from grupo");
+
+        return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
+
+       
         
     }
 

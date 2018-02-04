@@ -13,7 +13,27 @@ Crear Usuario
 {!! Form::open(['route' => ['users.update',$user], 'method' => 'PUT']) !!}
 <!--{!! Form::open(['method' => 'PATCH', 'action' => ['UsuariosController@update', $user->id], 'files' => true]) !!} -->
 
-
+  
+  @if ($user->type  == 'admin')
+    <center>
+     <img src="{{ URL::to('/') }}/images_n/admin_icon.png" style="width: 100px" /><br/><br/>
+      <a class="btn btn-danger"> Administrador</a>
+      <br/>
+     </center> 
+  @elseif ($user->type  == 'profesor')
+      <center>
+       <img src="{{ URL::to('/') }}/images_n/profesor_icon.png" style="width: 100px" /><br/><br/>
+        <a class="btn btn-info"> Profesor</a>
+        <br/>
+     </center>
+  @else
+      <center>
+     <img src="{{ URL::to('/') }}/images_n/alumno_icon.png" style="width: 100px" /><br/><br/>
+      <a class="btn btn-success"> Alumno</a>
+      <br/>
+     </center>
+  @endif
+ 
   <div class="form-group">
 
      {!! Form::label('name','Nombre')!!}
@@ -31,7 +51,7 @@ Crear Usuario
 
   <div class="form-group">
 
-  		{!! Form::label('type','Tipo') !!}
+  		{!! Form::label('type','Cambiar tipo de usuario') !!}
       {!! Form::select('type', ['alumno' => 'alumno', 'profesor' => 'profesor', 'admin' => 'Administrador'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opción..', 'required']) !!}
   	
 
@@ -49,20 +69,78 @@ Crear Usuario
   </div> -->
 {!! Form::close() !!}
 
+@if ($user->type  == 'profesor')
+    Listado de asignaturas:
+      <table class="table">
+      <th>Asignatura</th>
+      <th>Curso</th>
+      @foreach($asignaturas as $asignatura)
+          <tr>
+            <td>{{ $asignatura->nombre_asig }}</td>
+            <td>{{ $asignatura->curso }}</td>         
+          </tr>  
+      @endforeach
+      </table>
 
-Listado de asignaturas:
-  <table class="table">
-  <th>Asignatura</th>
-  <th>Curso</th>
-  @foreach($asignaturas as $asignatura)
-      <tr>
-        <td>{{ $asignatura->nombre_asig }}</td>
-        <td>{{ $asignatura->curso }}</td>         
-      </tr>  
-  @endforeach
-  </table>
+    <a  class="btn btn-success" href="listAsignaturas">Agregar asignaturas</a>
+  @endIf
 
-<a  class="btn btn-success" href="listAsignaturas">Agregar asignaturas</a>
+  @if ($user->type  == 'alumno')
+    Curso
+      <table class="table">
+      <th>Este alumno está inscrito en el curso:</th>
+         
+         @if (count ($cursoAlumno) > 0) 
+          @foreach($cursoAlumno as $row)
+           
+              <tr>
+                <td>{{ $row->descripcion }}</td>
+                        
+              </tr>
+            
+         @endforeach 
+        @else
+          <tr>
+                <td>Sin curso asignado</td>
+                        
+              </tr>
+
+        @endIf  
+      </table>
+
+      <b>Cambiar Curso: </b><br/>
+      <select id="curso_alumno" >
+      @foreach($cursos as $curso)
+          <option value="{{ $curso->id }}">
+            {{ $curso->descripcion }}     
+          </option>  
+      @endforeach
+    </select>
+
+    <button id="guardar_curso" class="btn btn-success">Guardar Curso</button>
+
+
+   <br/>
+   <br/>
+   <ul class="list-group" > 
+    <li class="list-group-item active"> 
+      <h4><span class="glyphicon glyphicon-book"></span> Asignaturas que cursa</h4>
+    </li>
+    @foreach($asignaturasAlumno as $a)
+          <li class="list-group-item">
+            {{ $a->asigAlum }}
+          </li>    
+      @endforeach
+    </ul>  
+  @endIf
+
+
+<script type="text/javascript">
+  
+  $('#guardar_curso').click(function(e) {
+   location.href = "{{ URL::to('/') }}/admin/users/"+ {{ $user->id }}+"/"+  $('#curso_alumno').val() + "/saveCurso";
+});
+</script>
 
 @endsection
  

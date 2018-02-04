@@ -77,6 +77,11 @@ Auth::routes();
             'uses'  =>  'UsuariosController@deleteProfesorCurso',
             'as'    =>   'UsuariosController.deleteProfesorCurso'
         ]);
+
+        Route::get('users/{id}/{id_curso}/saveCurso',[
+            'uses'  =>  'UsuariosController@saveCurso',
+            'as'    =>   'UsuariosController.saveCurso'
+        ]);
 });
 
     Route::resource('asignatura_admin', 'Asignatura_adminController');
@@ -93,6 +98,12 @@ Auth::routes();
         'as'    =>   'cursos.destroy' 
 
         ]);
+    Route::get('cursos/{id}/{id_asignatura}/addAsignatura',[
+        'uses'  =>  'cursosController@addAsignatura',
+        'as'    =>   'cursos.addAsignatura' 
+
+        ]);
+
 
 	Route::resource('asignaturas', 'AsignaturaController');
     //Ruta usada para generar el nesten dropdown
