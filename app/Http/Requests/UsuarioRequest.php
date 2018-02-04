@@ -25,9 +25,9 @@ class UsuarioRequest extends Request
     {
         return [
             'name' => 'min:4|max:120|required',
-            'segundo_nombre' => 'min:4|max:120',
+            //'segundo_nombre' => 'min:4|max:120',
             'primer_apellido' => 'min:4|max:120|required',
-            'segundo_apellido' => 'min:4|max:120',
+            //'segundo_apellido' => 'min:4|max:120',
             'rut' => 'min:4|max:120|required',
             'sexo' => 'min:4|max:120|required',
             'direccion' => 'min:4|max:250|required',

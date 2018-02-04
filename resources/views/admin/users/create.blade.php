@@ -26,7 +26,7 @@ Crear Usuario
 
 
      {!! Form::label('segundo_nombre','Segundo Nombre')!!}
-     {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Segundo Nombre Completo','required'])!!}
+     {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Segundo Nombre Completo'])!!}
 
   </div>  
 
@@ -44,7 +44,7 @@ Crear Usuario
 
 
      {!! Form::label('segundo_apellido','Segundo Apellido')!!}
-     {!! Form::text('segundo_apellido',null,['class' => 'form-control', 'placeholder' => ' Segundo Apellido','required'])!!}
+     {!! Form::text('segundo_apellido',null,['class' => 'form-control', 'placeholder' => ' Segundo Apellido'])!!}
 
   </div>
 

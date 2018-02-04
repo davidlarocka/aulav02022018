@@ -185,14 +185,16 @@ label {
 
 @include('template_n.partials.errors')
 	
-@include('template_n.partials.side')
+
 
 <div class="cold-md-8">
-  @include('flash::message')
+ @include('template_n.partials.side')
 </div>
 
 <div class="container">
-	
+ 
+
+	@include('flash::message')
 </div>
 
 <script  src="{{ asset('plugins/jquery/js/jquery-3.2.1.js')}}"></script>
