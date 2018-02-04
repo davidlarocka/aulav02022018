@@ -108,7 +108,7 @@ Crear Usuario
         @endIf  
       </table>
 
-      <b>Cambiar Curso: </b>
+      <b>Cambiar Curso: </b><br/>
       <select id="curso_alumno" >
       @foreach($cursos as $curso)
           <option value="{{ $curso->id }}">
@@ -118,6 +118,20 @@ Crear Usuario
     </select>
 
     <button id="guardar_curso" class="btn btn-success">Guardar Curso</button>
+
+
+   <br/>
+   <br/>
+   <ul class="list-group" > 
+    <li class="list-group-item active"> 
+      <h4><span class="glyphicon glyphicon-book"></span> Asignaturas que cursa</h4>
+    </li>
+    @foreach($asignaturasAlumno as $a)
+          <li class="list-group-item">
+            {{ $a->asigAlum }}
+          </li>    
+      @endforeach
+    </ul>  
   @endIf
 
 
