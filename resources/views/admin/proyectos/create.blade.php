@@ -34,7 +34,7 @@
               <div class="form-group"> 
                 <label class="col-lg-3 control-label">Archivo</label> 
                 <div class="col-lg-3"> 
-                  <input type="file" class="form-control" name="archivo" /> 
+                  <input type="file" class="form-control-file" name="archivo" /> 
                 </div> 
               </div>
               <div class="form-group">
@@ -48,14 +48,14 @@
                 <div class="col-lg-3">
                   <input type="text" class="form-control" name="descripcion" id="descripcion" />
                 </div>
-              </div>
+              </div>              
               <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
                   <button type="submit" class="btn btn-success left">Publicar</button>
                 </div> 
               </div> 
           </div>       
-        {!! Form::close() !!}                
+                        
       <!--Fin-->
       </div>
     </div>
@@ -71,24 +71,25 @@
     <div id="alumnos" class="panel-collapse collapse">
       <div class="panel-body">
       <!--Inicio tabla de alumnos en el proyecto-->
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" id="cb1" value="option1" checked> Bruce Wayne
-        </label>
-        <label>
-          <input type="checkbox" id="cb2" value="option2" checked> Arthur Curry
-        </label>
-        <label>
-          <input type="checkbox" id="cb3" value="option3" checked> Diana Prince
-        </label>
+      <div class="form-check">
+        {{ Form::checkbox('id_as[]', 1, true,['class' => 'form-check-input']) }}
+        {{ Form::label('Bruce Wayne') }}
+      </div>
+      <div class="form-check">  
+        {{ Form::checkbox('id_as[]', 2, true,['class' => 'form-check-input']) }}
+        {{ Form::label('Arthur Curry') }}
+      </div>  
+      <div class="form-check">  
+        {{ Form::checkbox('id_as[]', 3, true,['class' => 'form-check-input']) }}
+        {{ Form::label('Diana Prince') }}
       </div>
       <!--Fin-->
       </div>
     </div>
   </div>
 </div>
+{!! Form::close() !!}
 <a href="{!! url('admin/proyectos'); !!}/{{$id_a}},{{$id_g}}">Volver a tablas de proyectos</a>
-
 
 <!--<div class="title">
   <h3 class="title">Agregar proyecto</h3>

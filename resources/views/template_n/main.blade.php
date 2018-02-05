@@ -283,7 +283,6 @@ label {
       /*foreach($proyectos as $proyecto){
         {"date":"'".$proyecto->fecha_entrega."'","badge":true,"title":"'".$proyecto->nombre_proyecto."'"},  
       }*/
-
       @foreach($proyectos as $proyecto)        
         {"date":"{{$proyecto->fecha_entrega}}","badge":true,"title":"{{$proyecto->nombre_proyecto}}"},
       @endforeach

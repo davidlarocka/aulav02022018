@@ -17,7 +17,7 @@
     {!! Form::text('descripcion',$capsula->descripcion,['class' => 'form-control', 'placeholder' => 'Descripción','required'])!!}
 
     {!! Form::label('archivo','Archivo almacenado: '.$capsula->archivo)!!}
-    <input type="file" class="form-control" name="archivo" placeholder="Archivo" value="{{$capsula->archivo}}">
+    <input type="file" class="form-control-file" name="archivo" placeholder="Archivo" value="{{$capsula->archivo}}">
     <input type="hidden" class="form-control" name="archivo2"value="{{$capsula->archivo}}">
 
     {!! Form::label('url','Vídeo')!!}

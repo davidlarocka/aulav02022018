@@ -17,7 +17,7 @@
     {!! Form::text('descripcion',$guia->descripcion,['class' => 'form-control', 'placeholder' => 'Descripción','required'])!!}
 
     {!! Form::label('archivo','Archivo almacenado: '.$guia->archivo)!!}
-    <input type="file" class="form-control" name="archivo" placeholder="Archivo" value="{{$guia->archivo}}">
+    <input type="file" class="form-control-file" name="archivo" placeholder="Archivo" value="{{$guia->archivo}}">
     <input type="hidden" class="form-control" name="archivo2"value="{{$guia->archivo}}">
 
     {!! Form::label('url','Vídeo')!!}

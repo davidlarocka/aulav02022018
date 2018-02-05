@@ -26,7 +26,7 @@ Agregar material
     {!! Form::text('descripcion',null,['class' => 'form-control', 'placeholder' => 'Descripción','required'])!!}
 
     {!! Form::label('archivo','Seleccione el material que desea agregar')!!}
-    <input type="file" class="form-control" name="archivo" >
+    <input type="file" class="form-control-file" name="archivo" >
 
     {!! Form::label('url','Vídeo')!!}
     {!! Form::text('url',null,['class' => 'form-control', 'placeholder' => 'Vídeo'])!!}

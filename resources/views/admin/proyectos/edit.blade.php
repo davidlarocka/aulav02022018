@@ -30,7 +30,7 @@
               <div class="form-group"> 
                 <label class="col-lg-3 control-label">Archivo cargado: {{$proyecto->archivo}}</label> 
                 <div class="col-lg-3"> 
-                  <input type="file" class="form-control" name="archivo" value="" /> 
+                  <input type="file" class="form-control-file" name="archivo" value="" /> 
                 </div> 
               </div>
               <div class="form-group">

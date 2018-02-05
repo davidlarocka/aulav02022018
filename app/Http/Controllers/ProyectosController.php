@@ -79,13 +79,12 @@ class ProyectosController extends Controller
         if($request->archivo!=null){
             $validator = Validator::make(
             [
-            'archivo'      => $request->archivo,
-            'extension' => strtolower($request->archivo->getClientOriginalExtension()),              
-
+                'archivo'      => $request->archivo,
+                'extension' => strtolower($request->archivo->getClientOriginalExtension()),
             ],
             [
-            'archivo'          => 'required',
-            'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf',
+                'archivo'          => 'required',
+                'extension'      => 'required|in:doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf',
             ]);
 
             if($validator->fails()){
@@ -109,15 +108,20 @@ class ProyectosController extends Controller
         //-------------------------------------------------------------------------------
 
         $hoy = date('Y-m-d');
+         
+        $id_alumnos = '('.implode(',', (array) $request->input('id_as')).')';        
 
         $proyectos = new proyectos($request->all());
         $proyectos->archivo = $name;
         $proyectos->id_profesor = Auth::id();
         $proyectos->url = $urltube;
         $proyectos->fecha_publicacion = $hoy;
+        $proyectos->id_alumnos = $id_alumnos;
+        //dd($id_alumnos);
         $proyectos->save();
         Flash::success('El proyecto se ' . $proyectos->nombre_proyecto . ' ha sido guardado con éxito!');
-        return redirect("admin/proyectos/" . $request->id_asignatura.','.$request->id_grupo);   
+        return redirect("admin/proyectos/" . $request->id_asignatura.','.$request->id_grupo);
+
     }
     /**
      * Muestra la empresa deseada.
@@ -163,11 +167,8 @@ class ProyectosController extends Controller
             }
 
             $ruta = "public";
-
             $name = $request->file('archivo')->getClientOriginalName();
-
             $ext = $request->file('archivo')->getClientOriginalExtension();
-
             $request->file('archivo')->storePubliclyAs($ruta,$name);                
         }            
         
