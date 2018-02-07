@@ -5,12 +5,13 @@ Agregar Cápsula
 
 @section('content')
 
-{!! Form::open(['route' => 'capsulas.store', 'method' => 'POST','files' => 'true']) !!}
 
+<a href="{!! url('admin/capsulas'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de capsulas</a>
 <div class="title">
 <h3 class="title">Agregar cápsula</h3>
 </div>
-  
+
+{!! Form::open(['route' => 'capsulas.store', 'method' => 'POST','files' => 'true']) !!}
   <div class="tabla">
   <div class="form-group">
 
@@ -45,6 +46,8 @@ Agregar Cápsula
   </div>
 
   </div> 
+
+<a href="{!! url('admin/capsulas'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de capsulas</a>
 
  <!-- <div>
   <a href="" class="btn btn-success">boton bootstrap</a>

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Laracasts\Flash\Flash;
-use App\Http\Requests\materialhRequest;
+use App\Http\Requests\MaterialhRequest;
 use App\materialhs;
 use DB;
 use Illuminate\Support\Facades\Auth;

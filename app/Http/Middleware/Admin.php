@@ -33,12 +33,14 @@ class Admin
              return $next($request);
         }
         else {
-
-            dd("No puede");   //si quiere mostrar error usas: abort(401);
+            Auth::logout();
+            //return dd(Auth::logout());
+            return redirect('login');
+            //dd("No puede");   //si quiere mostrar error usas: abort(401);
         }
 
        
 
-        return redirect('/admin/home');
+        return redirect('/login');
     }
 }

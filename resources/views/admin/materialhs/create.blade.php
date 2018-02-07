@@ -5,11 +5,13 @@ Agregar Material Habilitado
 
 @section('content')
 
-{!! Form::open(['route' => 'materialhs.store', 'method' => 'POST','files' => 'true']) !!}
+<a href="{!! url('admin/materialhs'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de materiales habilitados</a>
 
 <div class="title">
 <h3 class="title">Agregar Material Habilitado</h3>
 </div>
+
+{!! Form::open(['route' => 'materialhs.store', 'method' => 'POST','files' => 'true']) !!}
   
   <div class="tabla">
    <div class="form-group">
@@ -50,5 +52,8 @@ Agregar Material Habilitado
   <a href="" class="btn btn-success">boton bootstrap</a>
   </div> -->
 {!! Form::close() !!} 
+
+<a href="{!! url('admin/materialhs'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de materiales habilitados</a>
+
 
 @endsection

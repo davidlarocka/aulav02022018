@@ -5,6 +5,11 @@
 @section('content')
 
 <div class="title"><h3 class="title" class="">Proyectos de {{ ucfirst($asignatura[0]->descripcion) }} {{ $grupo[0]->descripcion }}</h3></div>
+
+<div class="container">
+  @include('flash::message')
+</div>
+
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#tabla1">Por entregar</a></li>
   <li><a data-toggle="tab" href="#tabla2">Finalizados</a></li>

@@ -162,13 +162,13 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('logout') }}"
+                                        <a href="{{ route('salir') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Salir
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('salir') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
@@ -203,16 +203,27 @@
                       </a>
                   </li>
 
-                  @if( strtoupper(Auth::user()->type) =='PROFESOR' or strtoupper(Auth::user()->type) =='ADMIN' ) 
+                  @if( strtoupper(Auth::user()->type) =='ADMIN' ) 
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-desktop"></i>
-                          <span>Menu Profesor</span>
+                          <span>Menu Administrador</span>
                       </a>
                       <ul class="sub">
                           <li><a  href="{!! url('admin/users'); !!}">Administrar Usuarios</a></li>
                           <li><a  href="{!! url('admin/asignatura_admin'); !!}">Administrar Asignaturas</a></li>
                           <li><a  href="{!! url('admin/cursos'); !!}">Administrar Cursos</a></li>
+                      </ul>
+                  </li>
+                  @endif
+
+                  @if( strtoupper(Auth::user()->type) =='PROFESOR' ) 
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-graduation-cap"></i>
+                          <span>Menu Profesor</span>
+                      </a>
+                      <ul class="sub">
                           <li><a  href="{!! url('admin/asignaturas'); !!}">Mi Departamento</a></li>            
                           <li><a  href="#">Foros</a></li>
                       </ul>

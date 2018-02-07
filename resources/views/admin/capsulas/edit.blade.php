@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <h3 class="title">Editar cápsula</h3>
 
 <div class="tabla">
@@ -40,5 +41,6 @@
 {!! Form::close() !!}
 
  </div>
+
 
 @endsection

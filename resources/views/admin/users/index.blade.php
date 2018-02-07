@@ -7,18 +7,25 @@
 
 @section('content')
 
-
-
-<div >
-
 <div class="titulo">
-
 <h3>Listar Usuarios </h3>
  </div>
 
+<div class="container">
+  @include('flash::message')
+</div>
+
+ <ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#tabla1">Alumnos</a></li>
+  <li><a data-toggle="tab" href="#tabla2">Profesores</a></li>
+  <li><a data-toggle="tab" href="#tabla3">Administradores</a></li>
+</ul>
+
+<div class="tab-content">
+  <!--Inicio primera tabla-->
+  <div id="tabla1" class="tab-pane fade in active">
    <table  class="table table table-hover">
    	<thead class="table">
-   		<th>ID</th>
    		<th>Nombre</th>
    		<th>email</th>
    		<th>Tipo</th>
@@ -26,35 +33,98 @@
    	</thead>
 
    	<tbody class="table">
-   	   @foreach($users as $user)
+   	   @foreach($alumnos as $alumno)
    	   <tr>
-   	   	   <td>{{ $user->id }}</td>
-   	   	   <td>{{ $user->name }}</td>
-   	   	   <td>{{ $user-> email }}</td>
+   	   	   <td>{{ $alumno->name }}</td>
+   	   	   <td>{{ $alumno-> email }}</td>
    	   	   <td>
    	   	   	
-   	   	   	   @if($user->type== "admin")
-                         <span class="label label-danger">{{   $user->type }}</span>
-                    @elseif($user->type== "profesor")
-                         <span class="label label-primary">{{ $user->type }} </span>
+   	   	   	   @if($alumno->type== "admin")
+                         <span class="label label-danger">{{   $alumno->type }}</span>
+                    @elseif($alumno->type== "profesor")
+                         <span class="label label-primary">{{ $alumno->type }} </span>
                   @else
-                     <span class="label label-success">{{ $user->type }} </span>
+                     <span class="label label-success">{{ $alumno->type }} </span>
                     @endif
 
-
-
    	   	   </td>
-   	   	   <td><a href="{{ route('users.edit', $user->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
-   	   	    <a href="{{ route('admin.users.destroy', $user->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+   	   	   <td><a href="{{ route('users.edit', $alumno->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+   	   	    <a href="{{ route('admin.users.destroy', $alumno->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
    	   </tr>
    	   @endforeach 
 
    	</tbody>
 
    </table>
+   </div>
+   <!--fin primera tabla-->
+   <!--Inicio tabla 2-->
+   <div id="tabla2" class="tab-pane fade">
+    <table  class="table table table-hover">
+      <thead class="table">
+        <th>Nombre</th>
+        <th>email</th>
+        <th>Tipo</th>
+        <th>Accion</th>
+      </thead>
+      <tbody class="table">
+        @foreach($profesores as $profesor)
+        <tr>
+          <td>{{ $profesor->name }}</td>
+          <td>{{ $profesor-> email }}</td>
+          <td>
+          @if($profesor->type== "admin")
+          <span class="label label-danger">{{   $profesor->type }}</span>
+          @elseif($profesor->type== "profesor")
+          <span class="label label-primary">{{ $profesor->type }} </span>
+          @else
+          <span class="label label-success">{{ $profesor->type }} </span>
+          @endif
+          </td>
+          <td><a href="{{ route('users.edit', $alumno->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+          <a href="{{ route('admin.users.destroy', $alumno->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table> 
+   </div>
+   <!--Fin tabla 2-->
+   <!--Inicio tabla 3-->
+   <div id="tabla3" class="tab-pane fade">
+    <table  class="table table table-hover">
+      <thead class="table">
+        <th>Nombre</th>
+        <th>email</th>
+        <th>Tipo</th>
+        <th>Accion</th>
+      </thead>
+      <tbody class="table">
+        @foreach($admins as $admin)
+        <tr>
+          <td>{{ $admin->name }}</td>
+          <td>{{ $admin-> email }}</td>
+          <td>
+          @if($admin->type== "admin")
+          <span class="label label-danger">{{   $admin->type }}</span>
+          @elseif($admin->type== "profesor")
+          <span class="label label-primary">{{ $admin->type }} </span>
+          @else
+          <span class="label label-success">{{ $admin->type }} </span>
+          @endif
+          </td>
+          <td><a href="{{ route('users.edit', $alumno->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+          <a href="{{ route('admin.users.destroy', $alumno->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table> 
+   </div>
+   <!--Fin tabla 3-->
+</div>
 
+<br/>
+<br/>
    <a href="{!! url('admin/users/create'); !!}" class="btn btn-success" >Registrar Nuevo Usuario</a>
  
-   </div>
-   {{ $users->render() }}
+   {{ $alumnos->render() }}
 @endsection

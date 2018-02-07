@@ -11,14 +11,12 @@ Admin
 </p>
 <h3>San Nicolas Diacono</h3>
 
-
-
 <img src="{{ URL::to('/') }}/images_n/logo.jpg" class="" width="120" /> 
 
 <br/>
 <div class="btn btn-default">Ver Informes</div>
 
-<a href="{!! url('admin/asignaturas'); !!}" class="btn btn-success">Ver asignaturas</a>
+<a href="{!! url('admin/asignaturas'); !!}" class="btn btn-success">Mi Departamento</a>
 
 </center>
 @endsection

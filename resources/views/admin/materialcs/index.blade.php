@@ -8,6 +8,9 @@
 
 <!--  fin buscador  -->
 <div class="title"><h3 class="title" class="">Materiales complementarios de {{ ucfirst($asignatura[0]->descripcion) }} {{ $grupo[0]->descripcion }}</h3></div>
+<div class="container">
+  @include('flash::message')
+</div>
 <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#tabla1">Agregados por mí</a></li>
   <li><a data-toggle="tab" href="#tabla2">Otros profesores</a></li>

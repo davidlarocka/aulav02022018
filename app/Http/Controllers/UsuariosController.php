@@ -10,6 +10,8 @@ use App\User;
 use App\img_user;
 use DB;
 use Laracasts\Flash\Flash;
+use Auth;
+
 class UsuariosController extends Controller
 {
 
@@ -17,8 +19,12 @@ class UsuariosController extends Controller
     {
 
     	//dd("hola");
-      $users = User::orderBy('id', 'ASC')->paginate(5); // metodo paginate indica que mostra de 5 en 5 en la vista.
-       return view('admin.users.index')->with('users',$users);
+        //$users = User::orderBy('id', 'ASC')->paginate(5); // metodo paginate indica que mostra de 5 en 5 en la vista.
+        $alumnos = DB::table('users')->where('type','=','alumno')->orderBy('id', 'name')->paginate(5); 
+        $profesores = DB::table('users')->where('type','=','profesor')->orderBy('id', 'name')->paginate(5); 
+        $admins = DB::table('users')->where('type','=','admin')->orderBy('id', 'name')->paginate(5); 
+                
+        return view('admin.users.index')->with('alumnos',$alumnos)->with('profesores',$profesores)->with('admins',$admins);
     }
 
 
@@ -255,4 +261,9 @@ class UsuariosController extends Controller
         return redirect()->route('users.index');
     }
 
+     public function salir(Request $request) {
+        Auth::logout();
+        //return dd(Auth::logout());
+        return redirect('login');
+    }
 }

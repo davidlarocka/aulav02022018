@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Laracasts\Flash\Flash;
-use App\Http\Requests\capsulaRequest;
+use App\Http\Requests\CapsulaRequest;
 use App\capsulas;
 use DB;
 use Illuminate\Support\Facades\Auth;

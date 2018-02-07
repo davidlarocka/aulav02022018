@@ -104,10 +104,13 @@ Auth::routes();
 
         ]);
 
-
 	Route::resource('asignaturas', 'AsignaturaController');
     //Ruta usada para generar el nesten dropdown
     Route::get('asignaturas/ajax/{id}',array('as'=>'asignaturas.ajax','uses'=>'AsignaturaController@grupoAjax'));	
+    //UsuariosController
+    //Route::get('logout', '\App\Http\Controlers\UsuariosController@logout')->name('logout');
+    
+    Route::post('salir', ['as' => 'salir', 'uses' => 'UsuariosController@salir']);
 
     //Route::resource('cursos', 'CursosController');    
     //-----------------------------------------------------

@@ -5,11 +5,13 @@ Agregar guía
 
 @section('content')
 
-{!! Form::open(['route' => 'guias.store', 'method' => 'POST','files' => 'true']) !!}
+<a href="{!! url('admin/guias'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de guías</a>
 
 <div class="title">
 <h3 class="title">Agregar guía</h3>
 </div>
+
+{!! Form::open(['route' => 'guias.store', 'method' => 'POST','files' => 'true']) !!}
   
   <div class="tabla">
    <div class="form-group">
@@ -50,7 +52,7 @@ Agregar guía
   <a href="" class="btn btn-success">boton bootstrap</a>
   </div> -->
 {!! Form::close() !!}
-
+<a href="{!! url('admin/guias'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de guías</a>
  
 
 @endsection

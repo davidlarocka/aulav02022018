@@ -5,11 +5,14 @@ Agregar material
 
 @section('content')
 
-{!! Form::open(['route' => 'materialcs.store', 'method' => 'POST','files' => 'true']) !!}
+<a href="{!! url('admin/materialcs'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de materiales habilitados</a>
+
 
 <div class="title">
 <h3 class="title">Agregar material</h3>
 </div>
+
+{!! Form::open(['route' => 'materialcs.store', 'method' => 'POST','files' => 'true']) !!}
   
   <div class="tabla">
    <div class="form-group">
@@ -51,6 +54,7 @@ Agregar material
   </div> -->
 {!! Form::close() !!}
 
+<a href="{!! url('admin/materialcs'); !!}/{{$id_a}},{{$id_g}}">Volver a listado de materiales habilitados</a>
  
 
 @endsection
