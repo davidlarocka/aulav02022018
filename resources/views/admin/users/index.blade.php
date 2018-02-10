@@ -3,8 +3,6 @@
 
 @section('title', 'Listar Usuario')
 
-
-
 @section('content')
 
 <div class="titulo">
@@ -81,8 +79,8 @@
           <span class="label label-success">{{ $profesor->type }} </span>
           @endif
           </td>
-          <td><a href="{{ route('users.edit', $alumno->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
-          <a href="{{ route('admin.users.destroy', $alumno->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+          <td><a href="{{ route('users.edit', $profesor->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+          <a href="{{ route('admin.users.destroy', $profesor->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
         </tr>
         @endforeach
       </tbody>
@@ -112,8 +110,8 @@
           <span class="label label-success">{{ $admin->type }} </span>
           @endif
           </td>
-          <td><a href="{{ route('users.edit', $alumno->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
-          <a href="{{ route('admin.users.destroy', $alumno->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+          <td><a href="{{ route('users.edit', $admin->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+          <a href="{{ route('admin.users.destroy', $admin->id)}}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
         </tr>
         @endforeach
       </tbody>

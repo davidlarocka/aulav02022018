@@ -38,9 +38,6 @@ class Admin
             return redirect('login');
             //dd("No puede");   //si quiere mostrar error usas: abort(401);
         }
-
-       
-
-        return redirect('/login');
+            return redirect('/login');
     }
 }

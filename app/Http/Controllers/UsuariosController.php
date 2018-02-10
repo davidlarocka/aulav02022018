@@ -94,7 +94,6 @@ class UsuariosController extends Controller
             //buscamos el curso al cual pertenece el alumno    
             $cursoAlumno = DB::select("SELECT ag.id_alumno, g.descripcion, g.id as idGrupo FROM alumno_grupo ag, grupo g WHERE ag.id_grupo = g.id and id_alumno = $id");
             $asignaturasAlumno =  DB::select("SELECT ga.*, g.descripcion, a.descripcion as asigAlum FROM grupo_asignatura ga, grupo g, asignatura a, alumno_grupo u WHERE g.id = ga.id_grupo AND a.id= ga.id_asignatura and ga.id_grupo= u.id_grupo and u.id_alumno = $id"); 
-
     
         }else{
 
@@ -109,13 +108,8 @@ class UsuariosController extends Controller
          $cursos = DB::select("SELECT * from grupo");
 
     	return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
-
        
-        
-    }
-
-
-    
+    }    
 
     public function saveCurso($id, $id_curso)
     {
@@ -132,8 +126,6 @@ class UsuariosController extends Controller
             $res_save = DB::select("INSERT INTO alumno_grupo(id_alumno, id_grupo) values ($id, $id_curso)");
 
         }
-
-
 
         $user = User::find($id);
 
@@ -155,9 +147,7 @@ class UsuariosController extends Controller
 
          $cursos = DB::select("SELECT * from grupo");
 
-        return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);
-
-       
+        return view('admin.users.edit')->with('user', $user)->with('asignaturas', $asignaturas)->with('cursoAlumno', $cursoAlumno)->with('cursos', $cursos)->with('asignaturasAlumno', $asignaturasAlumno);       
         
     }
 
@@ -221,9 +211,6 @@ class UsuariosController extends Controller
         $cursos =  DB::select('select * from grupo');
         return redirect()->route('UsuariosController.listAsignaturas', ['id' => $id]);
     }
-
-
-
 
     /**
      * Actualiza la empresa deseada.
