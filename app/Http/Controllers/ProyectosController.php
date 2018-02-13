@@ -68,7 +68,15 @@ class ProyectosController extends Controller
     public function create($id)
     {
         $gId=explode(',', $id);
-        return view('admin.proyectos.create')->with('id_a', $gId[0])->with('id_g', $gId[1]);
+
+        $alumnos = DB::table('alumno_grupo')
+                    ->select('name','primer_apellido','users.id as id')
+                    ->join('users','users.id','=','alumno_grupo.id_alumno')
+                    ->join('grupo_asignatura','grupo_asignatura.id_grupo','=','alumno_grupo.id_grupo')
+                    ->where('alumno_grupo.id_grupo','=',$gId[1])
+                    ->where('grupo_asignatura.id_asignatura','=',$gId[0])->get();
+        //dd($alumnos);                    
+        return view('admin.proyectos.create')->with('id_a', $gId[0])->with('id_g', $gId[1])->with('alumnos', $alumnos);
     }   
      /*
      * @return Response
@@ -135,8 +143,14 @@ class ProyectosController extends Controller
     }
     public function edit($id)
     {
-    	//dd($user);
     	$proyectos = proyectos::find($id);
+        /*$alumnos = DB::select('select grupo.id as id, grupo.descripcion as descripcion, 
+                        case when exists (select id_grupo from grupo_asignatura ga, grupo g where ga.id_grupo = g.id and id_asignatura = '.$asignaturas->id.' and grupo.id=id_grupo) 
+                        then 
+                            "1" 
+                        else 
+                            "0" end as mostrar 
+                        from grupo');*/
     	return view('admin.proyectos.edit')->with('proyecto', $proyectos);        
     }
 

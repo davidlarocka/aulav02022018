@@ -12,6 +12,17 @@
         <a>Ingreso de nuevo proyecto</a>
       </h4>
     </div>
+
+@if(count($errors) > 0)
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+        <li> {{ $error}} </li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
     <div id="enc_proyecto" class="panel-collapse collapse">
       <div class="panel-body">
       <!--Inicio del formulario de proyectos-->
@@ -71,18 +82,12 @@
     <div id="alumnos" class="panel-collapse collapse">
       <div class="panel-body">
       <!--Inicio tabla de alumnos en el proyecto-->
-      <div class="form-check">
-        {{ Form::checkbox('id_as[]', 1, true,['class' => 'form-check-input']) }}
-        {{ Form::label('Bruce Wayne') }}
-      </div>
-      <div class="form-check">  
-        {{ Form::checkbox('id_as[]', 2, true,['class' => 'form-check-input']) }}
-        {{ Form::label('Arthur Curry') }}
-      </div>  
-      <div class="form-check">  
-        {{ Form::checkbox('id_as[]', 3, true,['class' => 'form-check-input']) }}
-        {{ Form::label('Diana Prince') }}
-      </div>
+      @foreach($alumnos as $alumno)
+        <div class="form-check">
+          {{ Form::checkbox('id_as[]', $alumno->id, true,['class' => 'form-check-input']) }}
+          {{ Form::label($alumno->name.' '.$alumno->primer_apellido) }}
+        </div>
+      @endforeach
       <!--Fin-->
       </div>
     </div>
@@ -90,11 +95,6 @@
 </div>
 {!! Form::close() !!}
 <a href="{!! url('admin/proyectos'); !!}/{{$id_a}},{{$id_g}}">Volver a tablas de proyectos</a>
-
-<!--<div class="title">
-  <h3 class="title">Agregar proyecto</h3>
-</div>-->
-<!--Inicio del formulario de proyectos-->
-
 <!--Fin del formulario de proyectos-->
+
 @endsection

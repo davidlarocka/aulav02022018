@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\AsignaturaRequest;
 use App\Asignatura_admin;
+use DB;
 
 class Asignatura_adminController extends Controller
 {
@@ -21,16 +22,15 @@ class Asignatura_adminController extends Controller
         return view('admin.asignatura_admin.index')->with('asig', $asignaturas);
     }
 
-
- /**
+    /**
      *
      * @return Response
      */
     public function create()
     {
-       return view('admin.asignatura_admin.create');
+       $grupos = DB::table('grupo')->get(); 
+       return view('admin.asignatura_admin.create')->with('grupos',$grupos);
     }
-
    
    /**
      *
@@ -38,10 +38,25 @@ class Asignatura_adminController extends Controller
      */
     public function store(AsignaturaRequest $request)
     {
-    $asignaturas = new Asignatura_admin($request->all());
-    //dd($asignaturas);
+                
+        $asignaturas = new Asignatura_admin($request->all());
+        //dd($asignaturas);
     	$asignaturas->save();
-    	Flash::success('La asignatura ' . $asignaturas->descripcion . ' ha sido guardada con exito!');
+        //dd($request->input('grupos'));
+        
+        $id_grupos = array();
+        $data = array();
+        $i = 0;
+
+        foreach ((array)$request->input('grupos') as $key => $value) {
+            //$id_grupos = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
+            $data[$i] = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
+            $i++;                        
+        }
+
+        DB::table('grupo_asignatura')->insert($data);
+
+    	Flash::success('La asignatura ' . $asignaturas->descripcion . ' ha sido guardada con éxito!');
     	return redirect()->route('asignatura_admin.index');  
     }
 
@@ -64,9 +79,17 @@ class Asignatura_adminController extends Controller
      */
     public function edit($id)
     {
-   $asignaturas = Asignatura_admin::find($id);
-    	return view('admin.asignatura_admin.edit')->with('asig', $asignaturas);
-        
+        $asignaturas = Asignatura_admin::find($id);
+
+        $grupos = DB::select('select grupo.id as id, grupo.descripcion as descripcion, 
+                        case when exists (select id_grupo from grupo_asignatura ga, grupo g where ga.id_grupo = g.id and id_asignatura = '.$asignaturas->id.' and grupo.id=id_grupo) 
+                        then 
+                            "1" 
+                        else 
+                            "0" end as mostrar 
+                        from grupo');
+
+    	return view('admin.asignatura_admin.edit')->with('asig', $asignaturas)->with('grupos', $grupos);        
     }
 
     /**
@@ -81,11 +104,30 @@ class Asignatura_adminController extends Controller
     	$asignaturas->descripcion = $request->descripcion;
     	$asignaturas->save();
 
+        //------------------------------Eliminar asociación de grupos con asignaturas-------------------
+
+        DB::select('delete from grupo_asignatura where id_asignatura = '.$asignaturas->id);
+
+        //-------------------------------------------Fin------------------------------------------------        
+
+        //---------------------Guardar listado de grupos asociados a la asignatura----------------------
+        $id_grupos = array();
+        $data = array();
+        $i = 0;
+
+        foreach ((array)$request->input('grupos') as $key => $value) {
+            //$id_grupos = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
+            $data[$i] = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
+            $i++;                        
+        }
+
+        DB::table('grupo_asignatura')->insert($data);                         
+        //---------------------------------------Fin----------------------------------------------------
+
     	Flash::warning('La asignatura ' . $asignaturas->descripcion . ' ha  sido editado con exito!');
     	return redirect()->route('asignatura_admin.index'); 
      
     }
-
 /**
    
      *
@@ -102,8 +144,4 @@ class Asignatura_adminController extends Controller
 
         return redirect()->route('asignatura_admin.store');
     }
-
-
-
-
 }

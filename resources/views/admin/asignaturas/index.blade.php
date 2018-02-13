@@ -7,7 +7,7 @@
 <select name="asignaturas" id="asignaturas" onchange="asignatura()">
   <option value="0" selected>Seleccione una asignatura...</option>  
   @foreach($asignaturas as $asignatura)
-    <option value="{{ $asignatura->id }}-{{ ucfirst($asignatura->descripcion) }}">{{ $asignatura->descripcion }}</option>         
+    <option value="{{ $asignatura->id }}-{{ ucfirst($asignatura->descripcion) }}">{{ ucfirst($asignatura->descripcion) }}</option>         
   @endforeach
 </select>
 <select name="grupos" id="grupos"></select>

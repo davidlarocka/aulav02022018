@@ -163,21 +163,28 @@ class UsuariosController extends Controller
 
        $asignaturasTodas = DB::select('select * from asignatura');
 
-       $cursos =  DB::select('select * from grupo');
+       //$cursos =  DB::select('select * from grupo');
        
-       $action = '';
-        return view('admin.users.listAsignaturas')->with('user', $user)->with('asignaturasProfesor', $asignaturasProfesor)->with('asignaturasTodas', $asignaturasTodas)->with('cursos', $cursos)->with('action', $action);
+       //$action = '';
+       return view('admin.users.listAsignaturas')->with('user', $user)->with('asignaturasProfesor', $asignaturasProfesor)->with('asignaturasTodas', $asignaturasTodas);//->with('cursos', $cursos)->with('action', $action);
         
+    }
+
+    public function gruposAjax($id){
+
+        $grupos = DB::table('grupo')
+            ->join('grupo_asignatura','grupo.id','=','grupo_asignatura.id_grupo')            
+            ->where('grupo_asignatura.id_asignatura','=',$id)
+            ->pluck("grupo.descripcion as descripcion","grupo.id as id_grupo")->all();
+        return json_encode($grupos);
+
     }
 
     public function addProfesorCurso($id, $id_asignatura, $id_curso)
     {
         
-
         $asignaturasTodas = DB::select("insert into profesor_asignatura(id_profesor, id_asignatura, id_grupo) VALUES($id, $id_asignatura, $id_curso)");
         $action = 'Guardado con exito';
-
-
 
         $user = User::find($id); 
         $asignaturasProfesor = DB::select("select a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where
@@ -194,12 +201,9 @@ class UsuariosController extends Controller
     public function deleteProfesorCurso($id, $id_asignatura, $id_curso)
     {
         
-
         $asignaturasTodas = DB::select("delete from profesor_asignatura where id_profesor = $id and id_asignatura = $id_asignatura and id_grupo= $id_curso");
         
         $action = 'Eliminado con exito';
-
-
 
         $user = User::find($id); 
         $asignaturasProfesor = DB::select("select a.descripcion as nombre_asig, g.descripcion as curso, pa.id_asignatura as idAsignatura, pa.id_grupo as idGrupo, id_profesor as idProfesor  from profesor_asignatura pa,  asignatura a, grupo g where

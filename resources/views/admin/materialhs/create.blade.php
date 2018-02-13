@@ -11,6 +11,16 @@ Agregar Material Habilitado
 <h3 class="title">Agregar Material Habilitado</h3>
 </div>
 
+@if(count($errors) > 0)
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+        <li> {{ $error}} </li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
 {!! Form::open(['route' => 'materialhs.store', 'method' => 'POST','files' => 'true']) !!}
   
   <div class="tabla">

@@ -9,8 +9,19 @@ Crear Asignatura
 
 
 <div class="title">
-<h3 class="title">Agregar Asignatura </h3>
+  <h3 class="title">Agregar Asignatura </h3>
 </div>
+
+@if(count($errors) > 0)
+   <div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+      <li> {{ $error}} </li>
+      @endforeach
+    </ul>
+   </div>
+
+ @endif
   
   <div class="tabla">
   <div class="form-group">
@@ -19,13 +30,20 @@ Crear Asignatura
      {!! Form::text('descripcion',null,['class' => 'form-control', 'placeholder' => 'Asignatura','required'])!!}
 
   </div>
+  <h5>Grupos a los que pertenece la asignatura</h5>  
+  <div class="form-group">
+    @foreach($grupos as $grupo)
+      <div class="form-check">
+        {{ Form::checkbox('grupos[]', $grupo->id, true,['class' => 'form-check-input']) }}
+        {{ Form::label($grupo->descripcion) }}
+      </div>
+    @endforeach  
+  </div>
 
-  
- 
-  <div align="right">
-  	
+  <a href="{!! url('admin/asignatura_admin'); !!}">Volver a listado de asignaturas</a> 
+
+  <div align="right">  	
   	{!! Form::submit('Registrar', ['class' => 'btn btn-success'] )!!}
-
   </div>
 
   </div> 

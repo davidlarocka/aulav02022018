@@ -16,8 +16,9 @@ Admin
 <br/>
 <div class="btn btn-default">Ver Informes</div>
 
-<a href="{!! url('admin/asignaturas'); !!}" class="btn btn-success">Mi Departamento</a>
-
+@if( strtoupper(Auth::user()->type) =='PROFESOR' ) 
+	<a href="{!! url('admin/asignaturas'); !!}" class="btn btn-success">Mi Departamento</a>
+@endif
 </center>
 @endsection
 

@@ -25,8 +25,7 @@
             <th>Fecha de entrega</th>
             <th>Archivo</th>          
             <th>Vídeo</th>
-            <th>Observaciones</th>     
-
+            <th>Observaciones</th>
             <tbody class="table">
              @foreach($proyectosPE as $proyecto)
              <tr>

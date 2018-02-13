@@ -1,13 +1,24 @@
 @extends('template_n.main')
 @section('title')
-Crear Usuario
+Agregar Usuario
 @endsection
 
 @section('content')
 
 <div class="titulo">
-<h3 >Crear Usuarios </h3>
+<h3 >Agregar Usuario</h3>
 </div>
+
+@if(count($errors) > 0)
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+        <li> {{ $error}} </li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
 <div class="progress">
     <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 </div>

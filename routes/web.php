@@ -51,17 +51,16 @@ Auth::routes();
         ]);
 	Route::group(['prefix' => 'admin'], function(){
 
-
     Route::group(['middleware' => 'admin'], function(){
 
    //------------- Rutas Modulo Admin-----------
 
+    Route::get('grupos/ajax/{id}',array('as'=>'usuarios.ajax','uses'=>'UsuariosController@gruposAjax'));    
     Route::resource('users','UsuariosController');    
     Route::get('users/{id}/destroy',[
            'uses'  =>  'UsuariosController@destroy',
             'as'    =>   'admin.users.destroy'
-        ]);
-   
+        ]);   
 
        Route::get('users/{id}/listAsignaturas',[
             'uses'  =>  'UsuariosController@listAsignaturas',

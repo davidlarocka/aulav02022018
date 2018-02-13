@@ -183,9 +183,7 @@ label {
 </head>
 <body class="cover">
 
-@include('template_n.partials.errors')
-	
-
+<!--@include('template_n.partials.errors')-->
 
 <div class="cold-md-8">
  @include('template_n.partials.side')
