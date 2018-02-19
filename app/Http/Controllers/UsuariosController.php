@@ -17,9 +17,6 @@ class UsuariosController extends Controller
 
     public function index()
     {
-
-    	//dd("hola");
-        //$users = User::orderBy('id', 'ASC')->paginate(5); // metodo paginate indica que mostra de 5 en 5 en la vista.
         $alumnos = DB::table('users')->where('type','=','alumno')->orderBy('id', 'name')->paginate(5); 
         $profesores = DB::table('users')->where('type','=','profesor')->orderBy('id', 'name')->paginate(5); 
         $admins = DB::table('users')->where('type','=','admin')->orderBy('id', 'name')->paginate(5); 
@@ -45,8 +42,6 @@ class UsuariosController extends Controller
      */
     public function store(UsuarioRequest $request)
     {
-    	//dd($request->all());   //muestra todos los valores que se envian del formulario.
-
         $file = $request->file('image');
         $name = 'imag_' . time() .'.' . $file->getClientOriginalExtension();
         $path = public_path() . '/images_n/users';
@@ -54,14 +49,13 @@ class UsuariosController extends Controller
 
         $user = new User($request->all());
         $user -> password = bcrypt($request -> password);
-       // dd($user);
         $user -> save();
 
         $image =  new img_user();
         $image->nombre =$name;
         $image->user()->associate($user);
         $image->save();
-         //dd($user);
+        //dd($user);
         //dd('Usuario Creado');
         Flash::success("se  ha registrado a ". $user->name ." de forma exitosa!");
         return redirect()->route('users.edit', $user->id); 

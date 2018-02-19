@@ -50,9 +50,8 @@
                   <button type="submit" class="btn btn-success left">Editar</button>
                 </div> 
               </div> 
-          </div>        
-        {!! Form::close() !!}                
-      <!--Fin-->
+          </div>
+        <!--Fin-->
       </div>
     </div>
   </div>
@@ -67,11 +66,16 @@
     <div id="alumnos" class="panel-collapse collapse">
       <div class="panel-body">
       <!--Inicio tabla de alumnos en el proyecto-->
-                
+      @foreach($alumnos as $alumno)
+        <div class="form-check">
+          {{ Form::checkbox('id_as[]', $alumno->id, $alumno->checked,['class' => 'form-check-input']) }}
+          {{ Form::label($alumno->name.' '.$alumno->primer_apellido) }}
+        </div>
+      @endforeach
       <!--Fin-->
       </div>
     </div>
   </div>
 </div>
-
+{!! Form::close() !!}                
 @endsection

@@ -232,26 +232,6 @@ label {
   <script src="{{ asset('plantilla/Theme/assets/js/zabuto_calendar.min.js')}}"></script>
 
   <script type="text/javascript">
-   /* $(document).ready(function () {
-    var unique_id = $.gritter.add({
-      // (string | mandatory) the heading of the notification
-      title: 'Proyectos',
-      // (string | mandatory) the text inside the notification
-      text: 'Tiene informes pendientes por revisar',
-      // (string | optional) the image to display on the left
-      image: 'assets/img/ui-sam.jpg',
-      // (bool | optional) if you want it to fade out on its own or just sit there
-      sticky: true,
-      // (int | optional) the time you want it to be alive for before fading out
-      time: '5',
-      // (string | optional) the class name you want to apply to that specific message
-      class_name: 'my-sticky-class'
-    });
-    return false;
-    });
-
-    */
-
     $(document).ready(function(){
   var current = 1,current_step,next_step,steps;
   steps = $("fieldset").length;
@@ -282,36 +262,10 @@ label {
   </script>
 
   <script type="application/javascript">
-     /*
-            $(document).ready(function () {
-            var eventData = [{"date":"2018-02-22","title":"2018-02-22","classname":"grade-2","badge":false},{"date":"2018-02-21","title":"2018-02-21","classname":"grade-2","badge":false},{"date":"2018-02-20","title":"2018-02-20","classname":"grade-2","badge":false},{"date":"2018-02-19","title":"2018-02-19","classname":"grade-2","badge":false},{"date":"2018-02-18","title":"2018-02-18","classname":"grade-2","badge":false},{"date":"2018-02-17","title":"2018-02-17","classname":"grade-2","badge":false},{"date":"2018-02-16","title":"2018-02-16","classname":"grade-2","badge":false},{"date":"2018-02-15","title":"2018-02-15","classname":"grade-2","badge":false},{"date":"2018-02-14","title":"2018-02-14","classname":"grade-2","badge":false},{"date":"2018-02-05","title":"2018-02-05","classname":"grade-2","badge":false},{"date":"2018-02-04","title":"2018-02-04","classname":"grade-2","badge":false},{"date":"2018-02-03","title":"2018-02-03","classname":"grade-2","badge":false},{"date":"2018-02-02","title":"2018-02-02","classname":"grade-2","badge":false},{"date":"2018-02-01","title":"2018-02-01","classname":"grade-2","badge":false},{"date":"2015-12-31","title":"2015-12-31","classname":"grade-2","badge":false},{"date":"2015-12-30","title":"2015-12-30","classname":"grade-2","badge":false}];
-            var legendData = [
-                {type: "block", label: "Booked", classname: "grade-1"},
-                {type: "block", label: "Non Available/Closed", classname: "grade-2"},
-                {type: "block", label: "Today", classname: "grade-today"},
-            ];
-            $("#my-calendar").zabuto_calendar({
-                cell_border: true,
-                today: true,
-                weekstartson: 0,
-                language: "es",
-                show_previous: false,
-                show_next: 12,
-                data: eventData,
-                legend: legendData,
-            });
-        });
-    */
-    ///*
     var eventData = [
-      /*foreach($proyectos as $proyecto){
-        {"date":"'".$proyecto->fecha_entrega."'","badge":true,"title":"'".$proyecto->nombre_proyecto."'"},  
-      }*/
       @foreach($proyectos as $proyecto)        
         {"date":"{{$proyecto->fecha_entrega}}","badge":true,"title":"{{$proyecto->nombre_proyecto}}"},
       @endforeach
-      /*{"date":"2018-02-17","badge":true,"title":"Proyecto prueba"},
-      {"date":"2018-02-15","badge":true,"title":"Proyecto prueba 2"},*/
     ];
     $(document).ready(function () {
       $("#date-popover").popover({html: true, trigger: "manual"});

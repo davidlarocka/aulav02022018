@@ -157,7 +157,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} {{ Auth::user()->primer_apellido }}<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
@@ -171,14 +171,11 @@
                                         <form id="logout-form" action="{{ route('salir') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                       
+                                    </li>                       
                                 </ul>
                             </li>
-                        @endif
-                        
-                   <a href="profile.html"> <class="img-circle" width="60"><img src="{{ URL::to('/') }}/images_n/users/1.png" class="img-circle" width="60" /> </a>
-                
+                        @endif                        
+                   <a href="profile.html"> <class="img-circle" width="60"><img src="{{ URL::to('/') }}/images_n/users/" class="img-circle" width="60" /> </a>                
                     </ul>
             </div>
         </header>
@@ -193,8 +190,8 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-                  <p class="centered"><a href="profile.html"> <class="img-circle" width="60"><img src="{{ URL::to('/') }}/images_n/users/1.png" class="img-circle" width="60" /> </a></p>
-                  <h5 class="centered">{{ Auth::user()->name  }}</h5>
+                  <p class="centered"><a href="profile.html"> <class="img-circle" width="60"><img src="{{ URL::to('/') }}/images_n/users/{{ $imagen }}" class="img-circle" width="60" /> </a></p>
+                  <h5 class="centered">{{ Auth::user()->name  }} {{ Auth::user()->primer_apellido  }}</h5>
                   
                   <li class="mt">
                       <a class="active" href="#">
@@ -296,9 +293,6 @@
 
               <div class="row">
                   <div class="col-lg-9 main-chart">
-                  
-             
-
   
   @yield('content')
 

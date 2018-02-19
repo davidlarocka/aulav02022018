@@ -37,19 +37,14 @@ class Asignatura_adminController extends Controller
      * @return Response
      */
     public function store(AsignaturaRequest $request)
-    {
-                
+    {           
         $asignaturas = new Asignatura_admin($request->all());
-        //dd($asignaturas);
     	$asignaturas->save();
-        //dd($request->input('grupos'));
-        
         $id_grupos = array();
         $data = array();
         $i = 0;
 
         foreach ((array)$request->input('grupos') as $key => $value) {
-            //$id_grupos = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
             $data[$i] = ['id_grupo'=>$value, 'id_asignatura'=>$asignaturas->id];
             $i++;                        
         }

@@ -26,12 +26,12 @@
       <tbody class="table">
        @foreach($asig as $asignatura)
        <tr>
-           <td>{{ $asignatura->descripcion }}</td>
-            <td><a href="{{ route('asignatura_admin.edit', $asignatura->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
-            <a href="{{ route('asignatura_admin.destroy', $asignatura->id) }}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
-          </tr>
-          @endforeach
-          </tbody>
+        <td>{{ $asignatura->descripcion }}</td>
+        <td><a href="{{ route('asignatura_admin.edit', $asignatura->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
+        <a href="{{ route('asignatura_admin.destroy', $asignatura->id) }}" onclick="return confirm('Seguro que deseas eliminarlo?')" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> </a>      </td>
+      </tr>
+      @endforeach
+      </tbody>
    	</thead>
    	</table>
 

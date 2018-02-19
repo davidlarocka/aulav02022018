@@ -51,8 +51,6 @@ Crear Asignatura
  <!-- <div>
   <a href="" class="btn btn-success">boton bootstrap</a>
   </div> -->
-{!! Form::close() !!}
-
- 
+{!! Form::close() !!} 
 
 @endsection

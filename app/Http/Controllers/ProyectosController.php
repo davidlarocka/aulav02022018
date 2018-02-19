@@ -40,6 +40,7 @@ class ProyectosController extends Controller
         return view('admin.proyectos.index')->with('asignatura', $asignatura)->with('grupo', $grupo)->with('proyectosPE', $proyectosPE)->with('proyectosPF', $proyectosPF);    		
     }
 
+    //Función no implementada
     public function getProyectos($ids){
         $hoy = date('Y-m-d');
         $idA=explode(',', $ids);
@@ -100,12 +101,9 @@ class ProyectosController extends Controller
             }
 
             $ruta = "public";
-
             $name = $request->file('archivo')->getClientOriginalName();
-
             $ext = $request->file('archivo')->getClientOriginalExtension();
-
-            $request->file('archivo')->storePubliclyAs($ruta,$name);                
+            $request->file('archivo')->storePubliclyAs($ruta,$name);
         }            
         
         //-----------------Crear un enlace embebido de youtube---------------------------
@@ -117,7 +115,7 @@ class ProyectosController extends Controller
 
         $hoy = date('Y-m-d');
          
-        $id_alumnos = '('.implode(',', (array) $request->input('id_as')).')';        
+        $id_alumnos = implode(',', (array) $request->input('id_as'));        
 
         $proyectos = new proyectos($request->all());
         $proyectos->archivo = $name;
@@ -125,7 +123,6 @@ class ProyectosController extends Controller
         $proyectos->url = $urltube;
         $proyectos->fecha_publicacion = $hoy;
         $proyectos->id_alumnos = $id_alumnos;
-        //dd($id_alumnos);
         $proyectos->save();
         Flash::success('El proyecto se ' . $proyectos->nombre_proyecto . ' ha sido guardado con éxito!');
         return redirect("admin/proyectos/" . $request->id_asignatura.','.$request->id_grupo);
@@ -144,14 +141,21 @@ class ProyectosController extends Controller
     public function edit($id)
     {
     	$proyectos = proyectos::find($id);
-        /*$alumnos = DB::select('select grupo.id as id, grupo.descripcion as descripcion, 
-                        case when exists (select id_grupo from grupo_asignatura ga, grupo g where ga.id_grupo = g.id and id_asignatura = '.$asignaturas->id.' and grupo.id=id_grupo) 
-                        then 
-                            "1" 
-                        else 
-                            "0" end as mostrar 
-                        from grupo');*/
-    	return view('admin.proyectos.edit')->with('proyecto', $proyectos);        
+        $alumnos = DB::select('select u.id as id, u.name, u.primer_apellido,
+                                case when exists(select id_alumnos from proyectos p where FIND_IN_SET(u.id,p.id_alumnos) and id = '.$id.')
+                                    then 
+                                        "1"
+                                    else 
+                                        "0"
+                                    end as checked    
+                                from 
+                                    users u, alumno_grupo ag, grupo_asignatura ga
+                                where 
+                                    u.id = ag.id_alumno and
+                                    ag.id_grupo = ga.id_grupo and
+                                    ga.id_grupo = '.$proyectos->id_grupo.' and
+                                    ga.id_asignatura = '.$proyectos->id_asignatura);
+    	return view('admin.proyectos.edit')->with('proyecto', $proyectos)->with('alumnos',$alumnos);        
     }
 
     /**
@@ -162,7 +166,6 @@ class ProyectosController extends Controller
      */
      public function update(request $request,$id)
     {
-
         $name = '';  
         if($request->archivo!=null){
             $validator = Validator::make(
@@ -193,9 +196,12 @@ class ProyectosController extends Controller
         }        
         //-------------------------------------------------------------------------------
 
+        $id_alumnos = implode(',', (array) $request->input('id_as'));
+
         $id_asignatura = DB::select('select id_asignatura from proyectos where id='.$id);
         $id_grupo = DB::select('select id_grupo from proyectos where id='.$id);
-        $proyecto= proyectos::find($id);
+        $proyecto= proyectos::find($id);        
+        $proyecto->id_alumnos = $id_alumnos;
         $proyecto->nombre_proyecto = $request->nombre_proyecto;
         $proyecto->fecha_entrega = $request->fecha_entrega;
         $proyecto->archivo = $name;
