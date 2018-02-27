@@ -226,6 +226,19 @@
                       </ul>
                   </li>
                   @endif
+                  @if( strtoupper(Auth::user()->type) =='ALUMNO' ) 
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-pencil"></i>
+                          <span>Menu Alummo</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="{!! url('admin/alumnoAsig'); !!}">Mis Asignaturas</a></li>            
+                          <li><a  href="#">Foros</a></li>
+                      </ul>
+                  </li>
+                  @endif
+
                   <!--li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-cogs"></i>

@@ -252,9 +252,15 @@ Auth::routes();
     Route::resource('proyectos', 'ProyectosController',['except'=>[
         'index','create'
     ]]);
-    //------------------------------------------------------
-    //Route::resource('videos', 'VideosController');    
-
+    //-----------------------------------------------------
+    //Route::resource('videos', 'VideosController');
+    //------Rutas necesarias para el módulo de alumnos-----
+    Route::get('alumnoAsig',[
+        'uses'  =>  'AlumnoAsigController@index',
+        'as'    =>  'alumnosAsig.index'
+    ]);
+    //Route::resource('asignaturas', 'AsignaturaController');    
+    //----------------------Fin----------------------------
 	Route::get('categorias/{id}/destroy',[
             'uses'  =>  'CategoriasController@destroy',
             'as'    =>   'categorias.destroy'
@@ -286,7 +292,6 @@ echo "hola m";
 })->middleware('admin');
 
 Auth::routes();
-
 
 /*Route::get('admin/auth/login', [
 
