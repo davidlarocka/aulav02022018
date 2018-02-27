@@ -18,15 +18,18 @@ class AlumnoAsigController extends Controller
       $id_alumno = Auth::id();
       
       $datos = DB::table('alumno_grupo')
-                ->select('grupo.descripcion as grupo','asignatura.descripcion as asignatura')
+                ->select('grupo.descripcion as grupo','asignatura.id as id','asignatura.descripcion as asignatura')
                 ->join('grupo','grupo.id','=','alumno_grupo.id_grupo')
                 ->join('grupo_asignatura','grupo_asignatura.id_grupo','=','alumno_grupo.id_grupo')                
                 ->join('asignatura','asignatura.id','=','grupo_asignatura.id_asignatura')
-                ->orderBy('asignatura','asignatura.id','=','grupo_asignatura.id_asignatura')                
+                ->orderBy('asignatura.descripcion','asc')                
                 ->where('alumno_grupo.id_alumno','=',$id_alumno)->get();
+        $publicaciones = DB::table('tipo_publicacion')                    
+                        ->select('id','descripcion')
+                        ->orderBy('tipo_publicacion.descripcion','asc')->get();
       //dd($datos);          
 
-      return view('admin.alumnosAsig.index')->with('datos', $datos);
+      return view('admin.alumnosAsig.index')->with('datos', $datos)->with('publicaciones', $publicaciones);
     }
 
     //Función no implementada
