@@ -33,8 +33,13 @@ class ComposerServiceProvider extends ServiceProvider
             $img = "";
 
             if($id_usuario!=null){
-                $cantPro=DB::table('proyectos')->whereMonth('fecha_entrega','=',$mes)->where('id_profesor','=',$id_usuario)->count();
-                $proyectos = DB::table('proyectos')->where('id_profesor','=',$id_usuario)->get();                            
+                if(strtoupper(Auth::user()->type) =='PROFESOR'){
+                    $cantPro = DB::table('proyectos')->whereMonth('fecha_entrega','=',$mes)->where('id_profesor','=',$id_usuario)->count();
+                    $proyectos = DB::table('proyectos')->where('id_profesor','=',$id_usuario)->get();
+                }else{
+                    $cantPro = DB::table('proyectos')->whereMonth('fecha_entrega','=',$mes)->whereRaw('FIND_IN_SET('.$id_usuario.',proyectos.id_alumnos)')->count();
+                    $proyectos = DB::table('proyectos')->whereRaw('FIND_IN_SET('.$id_usuario.',proyectos.id_alumnos)')->get();
+                }                                            
                 
                 $imagen = DB::table('img_user')->select('nombre')->where('user_id','=',$id_usuario)->get();
                 //dd($imagen);

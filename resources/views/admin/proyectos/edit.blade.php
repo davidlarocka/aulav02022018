@@ -3,6 +3,16 @@
 
 @section('content')
 
+@if(count($errors) > 0)
+  <div class="alert alert-danger" role="alert">
+    <ul>
+      @foreach($errors->all() as $error)
+        <li> {{ $error}} </li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
 <div class="panel-group">
   <div class="panel panel-default">
     <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto" style="cursor:pointer">

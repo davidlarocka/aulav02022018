@@ -255,9 +255,23 @@ Auth::routes();
     //-----------------------------------------------------
     //Route::resource('videos', 'VideosController');
     //------Rutas necesarias para el módulo de alumnos-----
+    //Asignaturas de los alumnos
     Route::get('alumnoAsig',[
         'uses'  =>  'AlumnoAsigController@index',
         'as'    =>  'alumnosAsig.index'
+    ]);
+    //Publicaciones para los alumnos
+    Route::get('publicaciones/{id}',[
+        'uses'  =>  'AlumnoAsigController@publicaciones',
+        'as'    =>  'alumnosAsig.publicaciones'
+    ]);
+    Route::get('publicaciones/descargar/{url}',[
+        'uses'  =>  'AlumnoAsigController@descargar',
+        'as'    =>  'alumnosAsig.descargar'
+    ]);
+    Route::get('alumnoProyecto/{id}',[
+        'uses'  =>  'AlumnoAsigController@proyectos',
+        'as'    =>  'alumnosAsig.proyectos'
     ]);
     //Route::resource('asignaturas', 'AsignaturaController');    
     //----------------------Fin----------------------------

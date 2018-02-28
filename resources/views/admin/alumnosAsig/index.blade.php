@@ -3,6 +3,7 @@
 @section('title', 'Asignaturas')
 
 @section('content')
+
 <style>
 .selector {
   position: absolute;
@@ -22,7 +23,7 @@
 <select name="asignaturas" id="asignaturas" onchange="asignatura()">
   <option value="0" selected>Seleccione una asignatura...</option>  
   @foreach($datos as $dato)
-    <option value="{{ $dato->id }}-{{ ucfirst($dato->asignatura) }}">{{ ucfirst($dato->asignatura) }}</option>         
+    <option value="{{ $dato->id_asignatura }}-{{ ucfirst($dato->asignatura) }}-{{ $dato->id_grupo }}">{{ ucfirst($dato->asignatura) }}</option>         
   @endforeach
 </select>
 
@@ -32,8 +33,8 @@
   <ul>
     @foreach($publicaciones as $publicacion)
       <li>
-        <input id='c{{ $publicacion->id }}' type='checkbox'>
-        <label for='c{{ $publicacion->id }}'class="fa fa-pencil fa" onclick="ir({{ $publicacion->id }})"><p>{{ ucfirst($publicacion->descripcion) }}</p></label>
+        <input id='c{{ $publicacion->id_publicacion }}' type='checkbox'>
+        <label for='c{{ $publicacion->id_publicacion }}'class="fa fa-pencil fa" onclick="ir({{ $publicacion->id_publicacion }})"><p>{{ ucfirst($publicacion->descripcion) }}</p></label>
       </li>
     @endforeach
   </ul>
@@ -45,25 +46,15 @@
 <script src="{{ URL::to('/') }}/js/jquery-3.2.1.min.js"></script>
 
 <script>
-  function ir(valor){    
-    switch(valor){
-      case 1:
-        location.href = "{{ URL::to('/') }}/admin/capsulas/"+valor;
-        break;
-      case 2:
-        location.href = "{{ URL::to('/') }}/admin/proyectos/"+valor;
-        break;
-      case 3:
-        location.href = "{{ URL::to('/') }}/admin/materialhs/"+valor;
-        break;
-      case 4:
-        location.href = "{{ URL::to('/') }}/admin/materialcs/"+valor;
-        break;
-      case 5:
-        location.href = "{{ URL::to('/') }}/admin/guias/"+valor;
-        break;    
-    }
-        
+  function ir(valor){
+      //id_tipo_publicacion, id_asignatura, id_grupo
+      var asig = document.getElementById('asignaturas').value;
+          res = asig.split("-");
+      if(valor==5){
+        location.href = "{{ URL::to('/') }}/admin/alumnoProyecto/"+res[0]+","+res[2];    
+      }else{
+        location.href = "{{ URL::to('/') }}/admin/publicaciones/"+valor+","+res[0]+","+res[2];  
+      }      
   }
 
   function asignatura(){
