@@ -23,7 +23,7 @@ class AlumnoAsigController extends Controller
                 ->join('grupo_asignatura','grupo_asignatura.id_grupo','=','alumno_grupo.id_grupo')                
                 ->join('asignatura','asignatura.id','=','grupo_asignatura.id_asignatura')
                 ->orderBy('asignatura.descripcion','asc')                
-                ->where('alumno_grupo.id_alumno','=',$id_alumno)->get();
+                ->where('alumno_grupo.id_alumno','=',$id_alumno)->paginate(10);
         $publicaciones = DB::table('tipo_publicacion')                    
                         ->select('id as id_publicacion','descripcion')
                         ->orderBy('tipo_publicacion.descripcion','asc')->get();
@@ -39,7 +39,7 @@ class AlumnoAsigController extends Controller
                         ->where('id_tipo_publicacion','=',$idPag[0])
                         ->where('id_asignatura','=',$idPag[1])
                         ->where('id_grupo','=',$idPag[2])
-                        ->orderBy('publicacion.updated_at','asc')->get();
+                        ->orderBy('publicacion.updated_at','asc')->paginate(10);
         $publicacion = DB::table('tipo_publicacion')
                         ->select('tipo_publicacion.descripcion as publicacion')
                         ->where('tipo_publicacion.id','=',$idPag[0])->get();
@@ -63,14 +63,14 @@ class AlumnoAsigController extends Controller
                         ->where('proyectos.id_asignatura','=',$idAg[0])
                         ->where('proyectos.id_grupo','=',$idAg[1])
                         ->where('fecha_entrega','>=',$hoy)
-                        ->whereRaw('FIND_IN_SET('.$id_alumno.',proyectos.id_alumnos)')->get();
+                        ->whereRaw('FIND_IN_SET('.$id_alumno.',proyectos.id_alumnos)')->paginate(10);
         $proyectosPf = DB::table('proyectos')
                         ->select('nombre_proyecto','descripcion','archivo','url','name','primer_apellido','fecha_entrega','observaciones')
                         ->join('users','users.id','=','proyectos.id_profesor')
                         ->where('proyectos.id_asignatura','=',$idAg[0])
                         ->where('proyectos.id_grupo','=',$idAg[1])
                         ->where('fecha_entrega','<=',$hoy)
-                        ->whereRaw('FIND_IN_SET('.$id_alumno.',proyectos.id_alumnos)')->get();
+                        ->whereRaw('FIND_IN_SET('.$id_alumno.',proyectos.id_alumnos)')->paginate(10);
         $asignatura = DB::table('asignatura')
                         ->select('asignatura.descripcion as asignatura')
                         ->where('asignatura.id','=',$idAg[0])->get();        
