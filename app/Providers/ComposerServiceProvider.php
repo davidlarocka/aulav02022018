@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use DB;
 
+use Carbon\Carbon;
+use Cmgmyr\Messenger\Models\Message;
+use Cmgmyr\Messenger\Models\Participant;
+use Cmgmyr\Messenger\Models\Thread;
+
 class ComposerServiceProvider extends ServiceProvider
 {
     /**
@@ -49,6 +54,12 @@ class ComposerServiceProvider extends ServiceProvider
                 }else{
                     $img = $imagen = $imagen[0]->nombre;
                 }                
+            }
+            //Aquí podría incluir un listado de los últimos 4 mensajes sin leer
+            try {
+                        
+            } catch (Exception $e) {
+                
             }
             $view->with('cantPro', $cantPro)->with('proyectos', $proyectos)->with('imagen', $img);    
         });

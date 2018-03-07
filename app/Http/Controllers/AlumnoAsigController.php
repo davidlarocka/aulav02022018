@@ -56,9 +56,8 @@ class AlumnoAsigController extends Controller
         $id_alumno = Auth::id();
         $idAg = explode(",", $ids);
         $hoy = date('Y-m-d');
-        //FIND_IN_SET(u.id,p.id_alumnos)
         $proyectosPe = DB::table('proyectos')
-                        ->select('nombre_proyecto','descripcion','archivo','url','name','primer_apellido','fecha_entrega','observaciones')
+                        ->select('proyectos.id as id','nombre_proyecto','descripcion','archivo','url','name','primer_apellido','fecha_entrega','observaciones')
                         ->join('users','users.id','=','proyectos.id_profesor')
                         ->where('proyectos.id_asignatura','=',$idAg[0])
                         ->where('proyectos.id_grupo','=',$idAg[1])

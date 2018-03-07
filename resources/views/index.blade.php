@@ -19,6 +19,7 @@ Admin
 @if( strtoupper(Auth::user()->type) =='PROFESOR' ) 
 	<a href="{!! url('admin/asignaturas'); !!}" class="btn btn-success">Mi Departamento</a>
 @endif
+
 </center>
 @endsection
 

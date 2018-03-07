@@ -198,6 +198,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+
+        //Para el chat
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
     ],
 
     /*

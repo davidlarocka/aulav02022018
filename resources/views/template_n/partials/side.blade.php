@@ -1,4 +1,14 @@
-
+<style type="text/css"> 
+  .msn:hover
+  {
+    color: #fff;
+    background-color: #fff;
+  }
+  .msn:link {
+    color: #fff;
+    text-decoration:none;
+  }
+</style> 
 <section id="container" >
       <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
@@ -11,6 +21,7 @@
             <!--logo start-->
             <a href="#" class="logo"><b>Aula Virtual</b></a>
             <!--logo end-->
+            @if( strtoupper(Auth::user()->type) !='ADMIN' )
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
@@ -87,21 +98,20 @@
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-theme">5</span>
+                            <span class="badge bg-theme">@include('admin.messenger.unread-count')</span>
                         </a>
                         <ul class="dropdown-menu extended inbox">
                             <div class="notify-arrow notify-arrow-green"></div>
                             <li>
-                                <p class="green">Tienes 5 Nuevos Mensajes</p>
+                              <!--<a class="msn" href="{!! url('admin/messages'); !!}">Tienes @include('admin.messenger.unread-count') Nuevos Mensajes</a>-->
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="index.html#">
                                     <span class="photo"><img alt="avatar" src="{{ asset('plantilla/Theme/assets/img/ui-zac.jpg')}}"></span>
                                     <span class="subject">
                                     <span class="from">Alumno Carlos Vegas</span>
                                     <span class="time">10 Min</span>
-                                    </span>
-                                    
+                                    </span>                                    
                                 </a>
                             </li>
                             <li>
@@ -136,13 +146,14 @@
                             </li>
                             <li>
                                 <a href="#">Ver Todos Los Mensajes</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </li>
                     <!-- inbox dropdown end -->
                 </ul>
                 <!--  notification end -->
             </div>
+            @endif
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
              <ul class="nav navbar-nav">
                         &nbsp;
@@ -318,10 +329,16 @@
       *********************************************************************************************************************************************************** -->             
   
  
-       
+                  
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
-            <h3>Mensajes de Alumnos</h3>
+
+                    @if( strtoupper(Auth::user()->type) !='ADMIN' )
+                    <h3>Mensajes 
+                      @if( strtoupper(Auth::user()->type) =='PROFESOR' ) 
+                        de Alumnos 
+                      @endif
+                    </h3>         
                                         
                       <!-- First Action -->
                       <div class="desc">
@@ -378,7 +395,7 @@
                           </p>
                         </div>
                       </div>
-
+                      @endif
                        <!-- USERS ONLINE SECTION -->
            
 

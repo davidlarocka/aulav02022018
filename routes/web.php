@@ -275,6 +275,15 @@ Auth::routes();
     ]);
     //Route::resource('asignaturas', 'AsignaturaController');    
     //----------------------Fin----------------------------
+    //----------------------Rutas para chat----------------
+    Route::group(['prefix' => 'messages'], function () {
+        Route::get('/proyecto/{id}', ['as' => 'messages', 'uses' => 'MessagesController@index']);
+        Route::get('create/{id}', ['as' => 'messages.create', 'uses' => 'MessagesController@create']);
+        Route::post('/', ['as' => 'messages.store', 'uses' => 'MessagesController@store']);
+        Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessagesController@show']);
+        Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update']);
+    });
+    //---------------------Fin rutas para chat-------------
 	Route::get('categorias/{id}/destroy',[
             'uses'  =>  'CategoriasController@destroy',
             'as'    =>   'categorias.destroy'
