@@ -113,7 +113,10 @@ class MessagesController extends Controller
         if (Input::has('recipients')) {
             $thread->addParticipant($input['recipients']);
         }
-        return redirect()->route('messages');
+        $id = $input['id_proyecto'];        
+        $threads = Thread::where('id_proyecto', '=', $id)->get();
+        return view('admin.messenger.index', compact('threads','id'));
+        //return redirect()->route('admin.messages.index', compact('threads','id'));
     }
     /**
      * Adds a new message to a current thread.
