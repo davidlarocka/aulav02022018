@@ -37,7 +37,7 @@ Agregar guía
     {!! Form::label('descripcion','Descripción')!!}
     {!! Form::text('descripcion',null,['class' => 'form-control', 'placeholder' => 'Descripción','required'])!!}
 
-    {!! Form::label('archivo','Seleccione la guía que desea agregar')!!}
+    {!! Form::label('archivo','Seleccione la guía que desea agregar.(Solo formatos: doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf)')!!}
     <input type="file" class="form-control-file" name="archivo" >
 
     {!! Form::label('Observacion','Observación')!!}

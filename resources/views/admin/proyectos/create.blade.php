@@ -43,7 +43,7 @@
                 </div> 
               </div> 
               <div class="form-group"> 
-                <label class="col-lg-3 control-label">Archivo</label> 
+                <label class="col-lg-3 control-label">Archivo. (Solo formatos: doc,csv,xlsx,xls,docx,ppt,odt,ods,odp,pdf)</label> 
                 <div class="col-lg-3"> 
                   <input type="file" class="form-control-file" name="archivo" /> 
                 </div> 
