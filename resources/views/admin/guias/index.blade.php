@@ -23,7 +23,6 @@
         <th>Título</th>
         <th>Descripción</th>
         <th>Tipo de archivo</th>
-        <th>Vídeo</th>      
         <th>Observación</th>
         <th>Creado</th>     
 
@@ -36,12 +35,7 @@
               <td></td>            
             @else
               <td><a href="{{URL::to('/') }}/admin/guias/descargar/{{$guia->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
-            @endif
-            @if(( $guia->url )=='#')
-              <td></td>
-            @else
-              <td><a href="#" class="btn btn-success btn-sm video" data-video="{{ $guia->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></td>                        
-            @endif
+            @endif            
             <td>{{ $guia->Observacion }}</td>
             <td>{{ date("d/m/Y", strtotime($guia->created_at)) }}</td>
             <td><a href="{{ URL::to('/') }}/admin/guias/{{ $guia->id }}/edit" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a> 
@@ -59,7 +53,6 @@
         <th>Título</th>
         <th>Descripción</th>
         <th>Tipo de archivo</th>
-        <th>Vídeo</th>      
         <th>Observación</th>        
         <th>Grupo</th>
         <th>Profesor</th>
@@ -74,11 +67,6 @@
               <td></td>            
             @else
               <td><a href="{{URL::to('/') }}/admin/guias/descargar/{{$guiaT->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
-            @endif
-            @if(( $guiaT->url )=='#')
-              <td></td>
-            @else
-              <td><a href="#" class="btn btn-success btn-sm video" data-video="{{ $guiaT->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></td>                        
             @endif
             <td>{{ $guiaT->Observacion }}</td>
             <td>{{ $guiaT->grupo }}</td>

@@ -49,7 +49,7 @@ class AlumnoAsigController extends Controller
         $grupo = DB::table('grupo')
                     ->select('grupo.descripcion as grupo')
                     ->where('grupo.id','=',$idPag[2])->get();          
-        return view('admin.alumnosAsig.publicaciones')->with('publicaciones', $publicaciones)->with('publicacion', $publicacion)->with('asignatura', $asignatura)->with('grupo', $grupo);   
+        return view('admin.alumnosAsig.publicaciones')->with('publicaciones', $publicaciones)->with('publicacion', $publicacion)->with('asignatura', $asignatura)->with('grupo', $grupo)->with('id_tipo_publicacion', $idPag[0]);   
     }
 
     public function proyectos($ids){

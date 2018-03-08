@@ -24,7 +24,6 @@
      	<thead class="table">
      		<th>Título</th>
      		<th>Descripción</th>
-     		<th>Tipo de archivo</th>
         <th>Vídeo</th>   		
         <th>Observación</th>
         <th>Creado</th>   	
@@ -33,12 +32,7 @@
          @foreach($capsulas as $capsula)
          <tr>
              <td>{{ $capsula->titulo }}</td>
-            <td>{{ $capsula->descripcion }}</td>
-            @if (( $capsula->archivo )=='')
-              <td></td>            
-            @else
-              <td><a href="{{URL::to('/') }}/admin/capsulas/descargar/{{$capsula->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
-            @endif
+            <td>{{ $capsula->descripcion }}</td>    
             @if(( $capsula->url )=='#')
               <td></td>
             @else
@@ -60,7 +54,6 @@
       <thead class="table">
         <th>Título</th>
         <th>Descripción</th>
-        <th>Tipo de archivo</th>
         <th>Vídeo</th>      
         <th>Observación</th>
         <th>Grupo</th>                
@@ -72,11 +65,6 @@
          <tr>
              <td>{{ $capsulaT->titulo }}</td>
             <td>{{ $capsulaT->descripcion }}</td>
-            @if (( $capsulaT->archivo )=='')
-              <td></td>            
-            @else
-              <td><a href="{{URL::to('/') }}/admin/capsulas/descargar/{{$capsulaT->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
-            @endif
             @if(( $capsulaT->url )=='#')
               <td></td>
             @else

@@ -22,13 +22,17 @@
 </ul>
 <div class="tab-content">
   <div id="tabla1" class="tab-pane fade in active">
-    <!--  Proyectos por entregar  -->
+    <!--  PUblicaciones  -->
     <table class="table table table-hover">
         <thead class="table">
             <th>Titulo</th>
             <th>Descripción</th>
-            <th>Archivo</th>          
-            <th>Vídeo</th>
+            @if ( $id_tipo_publicacion != '4')
+              <th>Archivo</th>
+            @endif
+            @if ( $id_tipo_publicacion != '1')          
+              <th>Vídeo</th>
+            @endif
             <th>Profesor</th>            
             <th>Observaciones</th>
             <tbody class="table">
@@ -36,16 +40,21 @@
              <tr>
                 <td>{{ $publicacion->titulo }}</td>
                 <td>{{ $publicacion->descripcion }}</td>
-                @if (( $publicacion->archivo )=='')
-                  <td></td>            
-                @else
-                  <td><a href="{{URL::to('/') }}/admin/publicaciones/descargar/{{ $publicacion->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
+                @if ( $id_tipo_publicacion !='4')  
+                  @if (( $publicacion->archivo )=='')
+                    <td></td>            
+                  @else
+                    <td><a href="{{URL::to('/') }}/admin/publicaciones/descargar/{{ $publicacion->archivo }}" class="fa fa-file-text fa 4x"></a></td>            
+                  @endif
                 @endif
-                @if(( $publicacion->url )=='#')
-                  <td></td>
-                @else
-                  <td><a href="#" class="btn btn-success btn-sm video" data-video="{{ $publicacion->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></td>                        
+                @if ( $id_tipo_publicacion !='1')  
+                  @if(( $publicacion->url )=='#')
+                    <td></td>
+                  @else
+                    <td><a href="#" class="btn btn-success btn-sm video" data-video="{{ $publicacion->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></td>                        
+                  @endif
                 @endif
+
                 <td>{{ $publicacion->nombreProf }} {{ $publicacion->apellidoProf }}</td>
                 <td>{{ $publicacion->observacion }}</td>
               </tr>

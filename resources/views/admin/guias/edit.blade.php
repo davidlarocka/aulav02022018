@@ -21,9 +21,6 @@
     <input type="file" class="form-control-file" name="archivo" placeholder="Archivo" value="{{$guia->archivo}}">
     <input type="hidden" class="form-control" name="archivo2"value="{{$guia->archivo}}">
 
-    {!! Form::label('url','Vídeo')!!}
-    {!! Form::text('url',$guia->url,['class' => 'form-control', 'placeholder' => 'Vídeo','required'])!!}
-
     {!! Form::label('observacion','Observación')!!}
     {!! Form::text('Observacion',$guia->Observacion,['class' => 'form-control', 'placeholder' => 'Observación','required'])!!}
 

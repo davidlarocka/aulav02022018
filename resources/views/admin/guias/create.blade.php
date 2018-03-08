@@ -40,9 +40,6 @@ Agregar guía
     {!! Form::label('archivo','Seleccione la guía que desea agregar')!!}
     <input type="file" class="form-control-file" name="archivo" >
 
-    {!! Form::label('url','URL de vídeo')!!}
-    {!! Form::text('url',null,['class' => 'form-control', 'placeholder' => 'url'])!!}
-
     {!! Form::label('Observacion','Observación')!!}
     {!! Form::text('Observacion',null,['class' => 'form-control', 'placeholder' => 'Observación','required'])!!}
 
