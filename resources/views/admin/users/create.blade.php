@@ -36,11 +36,15 @@ Agregar Usuario
   <div class="form-group">
     {!! Form::label('primer_apellido','Primer Apellido')!!}
     {!! Form::text('primer_apellido',null,['class' => 'form-control', 'placeholder' => ' Primer Apellido','required'])!!}
-  </div>
+  </div>  
   <div class="form-group">
     {!! Form::label('segundo_apellido','Segundo Apellido')!!}
     {!! Form::text('segundo_apellido',null,['class' => 'form-control', 'placeholder' => ' Segundo Apellido'])!!}
   </div>
+  <div class="form-group"> 
+    <label name="fecha_nacimiento">Fecha de nacimiento</label>
+    <input type="date" class="form-control" name="fecha_nacimiento" required/> 
+  </div>  
   <input type="button" name="seguir" class="next btn btn-info" value="Seguir" />
 </fieldset>
 <fieldset>  

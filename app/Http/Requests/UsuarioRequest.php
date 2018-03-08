@@ -32,9 +32,8 @@ class UsuarioRequest extends Request
             'sexo' => 'min:4|max:120|required',
             'direccion' => 'min:4|max:250|required',
             'telefono' => 'min:4|max:120|required',
-            'email' => 'min:4|max:250|required|unique:users',
-            'password' => 'min:4|max:120|required',
-            'image' => 'required'
+            'email' => 'min:4|max:250|email|required|unique:users',
+            'password' => 'min:4|max:120|required'
         ];
     }
 }

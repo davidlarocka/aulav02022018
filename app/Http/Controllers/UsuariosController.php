@@ -42,11 +42,15 @@ class UsuariosController extends Controller
      */
     public function store(UsuarioRequest $request)
     {
-        $file = $request->file('image');
-        $name = 'imag_' . time() .'.' . $file->getClientOriginalExtension();
-        $path = public_path() . '/images_n/users';
-        $file->move($path, $name);
-
+        if($request->archivo!=null){
+            $file = $request->file('image');
+            $name = 'imag_' . time() .'.' . $file->getClientOriginalExtension();
+            $path = public_path() . '/images_n/users';
+            $file->move($path, $name);
+        }else{
+            $name="noUser.jpg";
+        }    
+            
         $user = new User($request->all());
         $user -> password = bcrypt($request -> password);
         $user -> save();
