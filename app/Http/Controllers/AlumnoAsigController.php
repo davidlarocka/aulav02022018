@@ -33,13 +33,28 @@ class AlumnoAsigController extends Controller
     //Para las publicaciones es necesario id_tipo_publicacion, id_asignatura, id_grupo
     public function publicaciones($ids){
         $idPag = explode(",", $ids);
-        $publicaciones = DB::table('publicacion')
+
+        $id_alumno = Auth::id();
+
+        if ($idPag[0]==3) {
+            $publicaciones = DB::table('publicacion')
+                        ->select('publicacion.titulo as titulo','publicacion.descripcion as descripcion','publicacion.archivo as archivo','publicacion.url as url','publicacion.Observacion as observacion','users.name as nombreProf','users.primer_apellido as apellidoProf')                        
+                        ->join('users','users.id','=','publicacion.id_profesor')
+                        ->where('id_tipo_publicacion','=',$idPag[0])
+                        ->where('id_asignatura','=',$idPag[1])
+                        ->where('id_grupo','=',$idPag[2])
+                        ->whereRaw('FIND_IN_SET('.$id_alumno.',publicacion.id_alumnos)')
+                        ->orderBy('publicacion.updated_at','asc')->paginate(10);
+        }else{
+            $publicaciones = DB::table('publicacion')
                         ->select('publicacion.titulo as titulo','publicacion.descripcion as descripcion','publicacion.archivo as archivo','publicacion.url as url','publicacion.Observacion as observacion','users.name as nombreProf','users.primer_apellido as apellidoProf')                        
                         ->join('users','users.id','=','publicacion.id_profesor')
                         ->where('id_tipo_publicacion','=',$idPag[0])
                         ->where('id_asignatura','=',$idPag[1])
                         ->where('id_grupo','=',$idPag[2])
                         ->orderBy('publicacion.updated_at','asc')->paginate(10);
+        }
+        
         $publicacion = DB::table('tipo_publicacion')
                         ->select('tipo_publicacion.descripcion as publicacion')
                         ->where('tipo_publicacion.id','=',$idPag[0])->get();

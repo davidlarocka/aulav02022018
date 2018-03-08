@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class materialhs extends Model
 {
     protected $table= "publicacion";
-    protected $fillable= ['id_tipo_publicacion','id_asignatura','id_grupo','titulo','descripcion','url','Observacion','id_profesor'];
+    protected $fillable= ['id_tipo_publicacion','id_alumnos','id_asignatura','id_grupo','titulo','descripcion','url','Observacion','id_profesor'];
 }

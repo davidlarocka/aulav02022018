@@ -29,7 +29,7 @@ class MaterialhsController extends Controller
             ->where('publicacion.id_asignatura', '=', $idA[0])
             ->where('publicacion.id_grupo', '=', $idA[1])
             ->where('publicacion.id_profesor', '=', $id_usuario)
-            ->where('publicacion.id_tipo_publicacion', '=', 5) 
+            ->where('publicacion.id_tipo_publicacion', '=', 3) 
             ->select('publicacion.id_asignatura as idmateria', 'publicacion.id as id', 'publicacion.titulo as titulo', 'publicacion.descripcion as descripcion', 'publicacion.Observacion', 'publicacion.archivo', 'publicacion.url','publicacion.created_at')
             ->groupBy('publicacion.id')
             ->orderBy('publicacion.created_at', 'desc')
@@ -43,7 +43,7 @@ class MaterialhsController extends Controller
             ->join('grupo', 'publicacion.id_grupo', '=', 'grupo.id')            
             ->where('publicacion.id_asignatura', '=', $idA[0])
             ->where('publicacion.id_profesor', '!=', $id_usuario)            
-            ->where('publicacion.id_tipo_publicacion', '=', 5) 
+            ->where('publicacion.id_tipo_publicacion', '=', 3) 
             ->select('publicacion.id_asignatura as idmateria', 'publicacion.id as id', 'publicacion.titulo as titulo', 'publicacion.descripcion as descripcion', 'publicacion.Observacion', 'publicacion.archivo', 'publicacion.url','publicacion.created_at','users.name as n_profesor','grupo.descripcion as grupo')
             ->groupBy('publicacion.id')
             ->orderBy('publicacion.created_at', 'desc')
@@ -58,7 +58,13 @@ class MaterialhsController extends Controller
     public function create($id)
     {
       $gId=explode(',', $id);
-      return view('admin.materialhs.create')->with('id_a', $gId[0])->with('id_g', $gId[1]);
+      $alumnos = DB::table('alumno_grupo')
+                    ->select('name','primer_apellido','users.id as id')
+                    ->join('users','users.id','=','alumno_grupo.id_alumno')
+                    ->join('grupo_asignatura','grupo_asignatura.id_grupo','=','alumno_grupo.id_grupo')
+                    ->where('alumno_grupo.id_grupo','=',$gId[1])
+                    ->where('grupo_asignatura.id_asignatura','=',$gId[0])->get();
+      return view('admin.materialhs.create')->with('id_a', $gId[0])->with('id_g', $gId[1])->with('alumnos', $alumnos);
     }   
      /*
      * @return Response
@@ -99,9 +105,12 @@ class MaterialhsController extends Controller
         }        
         //-------------------------------------------------------------------------------
 
+        $id_alumnos = implode(',', (array) $request->input('id_as'));
+
         $materialhs = new materialhs($request->all());
         $materialhs->archivo = $name;
         $materialhs->url = $urltube;
+        $materialhs->id_alumnos = $id_alumnos;
         $materialhs->save();
         Flash::success('La guía ' . $materialhs->titulo . ' ha sido guardado con éxito!');
         return redirect("admin/materialhs/" . $request->id_asignatura.','.$request->id_grupo);   
@@ -120,7 +129,21 @@ class MaterialhsController extends Controller
     {
       //dd($user);
       $materialhs = materialhs::find($id);
-      return view('admin.materialhs.edit')->with('materialh', $materialhs);        
+      $alumnos = DB::select('select u.id as id, u.name, u.primer_apellido,
+                                case when exists(select id_alumnos from publicacion p where FIND_IN_SET(u.id,p.id_alumnos) and id = '.$id.')
+                                    then 
+                                        "1"
+                                    else 
+                                        "0"
+                                    end as checked    
+                                from 
+                                    users u, alumno_grupo ag, grupo_asignatura ga
+                                where 
+                                    u.id = ag.id_alumno and
+                                    ag.id_grupo = ga.id_grupo and
+                                    ga.id_grupo = '.$materialhs->id_grupo.' and
+                                    ga.id_asignatura = '.$materialhs->id_asignatura);
+      return view('admin.materialhs.edit')->with('materialh', $materialhs)->with('alumnos', $alumnos);        
     }
 
     /**
@@ -150,11 +173,14 @@ class MaterialhsController extends Controller
         //-------------------------------------------------------------------------------
 
         $id_asignatura = DB::select('select id_asignatura from publicacion where id='.$id);
-        $id_grupo = DB::select('select id_grupo from publicacion where id='.$id);        
+        $id_grupo = DB::select('select id_grupo from publicacion where id='.$id);
+
+        $id_alumnos = implode(',', (array) $request->input('id_as'));
 
         $materialhs= materialhs::find($id);
         $materialhs->titulo = $request->titulo;
         $materialhs->descripcion = $request->descripcion;
+        $materialhs->id_alumnos = $id_alumnos;
         $materialhs->archivo = $name;
         $materialhs->url = $urltube;
         $materialhs->Observacion = $request->Observacion;

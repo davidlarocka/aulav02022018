@@ -26,7 +26,7 @@ Agregar Material Habilitado
   <div class="tabla">
    <div class="form-group">
 
-    <input type="hidden" class="form-control" name="id_tipo_publicacion" value="5">
+    <input type="hidden" class="form-control" name="id_tipo_publicacion" value="3">
 
     <input type="hidden" class="form-control" name="id_asignatura" value="{{ $id_a }}">
     <input type="hidden" class="form-control" name="id_grupo" value="{{ $id_g }}">
@@ -45,6 +45,17 @@ Agregar Material Habilitado
 
     {!! Form::label('Observacion','Observación')!!}
     {!! Form::text('Observacion',null,['class' => 'form-control', 'placeholder' => 'Observación','required'])!!}
+
+    <br>
+
+    <h4>Habilitado para:</h4>    
+
+    @foreach($alumnos as $alumno)
+      <div class="form-check">
+        {{ Form::checkbox('id_as[]', $alumno->id, false,['class' => 'form-check-input']) }}
+        {{ Form::label($alumno->name.' '.$alumno->primer_apellido) }}
+      </div>
+    @endforeach
 
     <input type="hidden" class="form-control" name="id_profesor" value="{{ Auth::id() }}">
 

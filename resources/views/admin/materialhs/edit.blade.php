@@ -27,6 +27,13 @@
     {!! Form::label('observacion','Observación')!!}
     {!! Form::text('Observacion',$materialh->Observacion,['class' => 'form-control', 'placeholder' => 'Observación','required'])!!}
 
+    @foreach($alumnos as $alumno)
+        <div class="form-check">
+          {{ Form::checkbox('id_as[]', $alumno->id, $alumno->checked,['class' => 'form-check-input']) }}
+          {{ Form::label($alumno->name.' '.$alumno->primer_apellido) }}
+        </div>
+      @endforeach
+
   </div>
  
   <div align="right">
