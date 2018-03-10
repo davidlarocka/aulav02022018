@@ -26,8 +26,12 @@ class MessagesController extends Controller
         // All threads that user is participating in, with new messages
         // $threads = Thread::forUserWithNewMessages(Auth::id())->latest('updated_at')->get();
         //Todos los threads según el id del proyecto
+        $proyecto = DB::table('proyectos')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido')
+                    ->join('users','users.id','=','proyectos.id_profesor')
+                    ->where('proyectos.id','=',$id)->get();
         $threads = Thread::where('id_proyecto', '=', $id)->get();
-        return view('admin.messenger.index', compact('threads','id'));
+        return view('admin.messenger.index', compact('threads','id','proyecto'));
     }
     /**
      * Shows a message thread.
@@ -37,11 +41,42 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        try {
-            $thread = Thread::findOrFail($id);
+        $proyecto = DB::table('proyectos')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo')
+                    ->join('users','users.id','=','proyectos.id_profesor')
+                    ->where('proyectos.id','=',$id)->get();        
+            try {
+                
+                     # code...
+                $id_thread = DB::table('messenger_threads')
+                        ->select('id')
+                        ->where('id_proyecto','=',$id)->get();
+                //dd(!empty($id_thread[0]));
+                if ( !empty($id_thread[0]) ) {
+                    $thread = Thread::findOrFail($id_thread[0]->id);
+                } else {
+                    $profesores = DB::table('users')
+                        ->select('name','primer_apellido','users.id as id')
+                        ->join('proyectos','proyectos.id_profesor','=','users.id')
+                        ->where('users.id','!=',Auth::id())
+                        ->where('proyectos.id','=',$id)->get();
+                    $users = DB::table('users')
+                                ->select('name','primer_apellido','users.id as id')
+                                ->join('proyectos', function ($j) {
+                                    $j->whereRaw('FIND_IN_SET(users.id,proyectos.id_alumnos)');
+                                })
+                                ->where('users.id','!=',Auth::id())
+                                ->where('proyectos.id','=',$id)->get();
+                    //$users = User::where('id', '!=', Auth::id())->get();
+                    return view('admin.messenger.create', compact('users','profesores','id'));
+                }            
+
+            //$thread = Thread::where('id_proyecto', '=', $id)->get();
         } catch (ModelNotFoundException $e) {
+        //catch (ModelNotFoundException $e) {
             Session::flash('error_message', 'El hilo con ID: ' . $id . ' no fué encontrado.');
-            return redirect()->route('messages');
+            return view('admin.messenger.create', compact('users','profesores','id'));    
+            //return redirect()->route('messages');
         }
         // show current user in list if not a current participant
         // $users = User::whereNotIn('id', $thread->participantsUserIds())->get();
@@ -61,7 +96,7 @@ class MessagesController extends Controller
                     ->where('users.id','!=',Auth::id())
                     ->where('proyectos.id','=',$id)->get();
         $thread->markAsRead($userId);
-        return view('admin.messenger.show', compact('thread', 'users', 'profesores'));
+        return view('admin.messenger.show', compact('thread', 'users', 'profesores','proyecto'));
     }
     /**
      * Creates a new message thread.
@@ -114,8 +149,26 @@ class MessagesController extends Controller
             $thread->addParticipant($input['recipients']);
         }
         $id = $input['id_proyecto'];        
-        $threads = Thread::where('id_proyecto', '=', $id)->get();
-        return view('admin.messenger.index', compact('threads','id'));
+        //$threads = Thread::where('id_proyecto', '=', $id)->get();
+        $proyecto = DB::table('proyectos')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo')
+                    ->join('users','users.id','=','proyectos.id_profesor')
+                    ->where('proyectos.id','=',$id)->get();
+        $profesores = DB::table('users')
+                    ->select('name','primer_apellido','users.id as id')
+                    ->join('proyectos','proyectos.id_profesor','=','users.id')
+                    ->where('users.id','!=',Auth::id())
+                    ->where('proyectos.id','=',$id)->get();
+        $users = DB::table('users')
+                    ->select('name','primer_apellido','users.id as id')
+                    ->join('proyectos', function ($j) {
+                        $j->whereRaw('FIND_IN_SET(users.id,proyectos.id_alumnos)');
+                    })
+                    ->where('users.id','!=',Auth::id())
+                    ->where('proyectos.id','=',$id)->get();
+        $userId = Auth::id();
+        $thread->markAsRead($userId);
+        return view('admin.messenger.show', compact('thread','users','id','proyecto'));
         //return redirect()->route('admin.messages.index', compact('threads','id'));
     }
     /**

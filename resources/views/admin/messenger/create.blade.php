@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('content')
-    <h1>Responder</h1>
+    <h3>Crear conversación</h3>
     <form action="{{ route('messages.store') }}" method="post">
         {{ csrf_field() }}
         <div class="col-md-6">

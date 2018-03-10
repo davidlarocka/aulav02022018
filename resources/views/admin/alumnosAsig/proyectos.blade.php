@@ -43,7 +43,7 @@
                   <td><a href="#" class="btn btn-success btn-sm video" data-video="{{ $proyecto->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></td>                        
                 @endif
                 <td>{{ $proyecto->observaciones }}</td>
-                <td><a href="{{URL::to('/') }}/admin/messages/proyecto/{{ $proyecto->id }}" class="btn btn-primary btn-sm email"><i class="fa fa-envelope"></i></td>
+                <td><a href="{{URL::to('/') }}/admin/messages/{{ $proyecto->id }}" class="btn btn-primary btn-sm email"><i class="fa fa-envelope"></i></td>
               </tr>
               @endforeach
               </tbody>        

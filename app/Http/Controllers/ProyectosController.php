@@ -136,7 +136,11 @@ class ProyectosController extends Controller
      */
     public function show($id)
     {
-        
+        $proyecto = DB::table('proyectos')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido')
+                    ->join('users','users.id','=','proyectos.id_profesor')
+                    ->where('proyectos.id','=',$id)->get();
+        return view('admin.proyectos.show')->with('proyecto', $proyecto);
     }
     public function edit($id)
     {

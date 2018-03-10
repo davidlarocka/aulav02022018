@@ -248,6 +248,10 @@ Auth::routes();
     Route::get('proyectos/destroy/{id}',[
         'uses'  =>  'ProyectosController@destroy',
         'as'    =>   'proyectos.destroy'
+    ]);
+    Route::get('proyecto/{id}',[
+        'uses'  =>  'ProyectosController@show',
+        'as'    =>   'proyectos.show'
     ]);    
     Route::resource('proyectos', 'ProyectosController',['except'=>[
         'index','create'
