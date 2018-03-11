@@ -5,6 +5,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\AlumnoAsigRequest;
+use App\Http\Requests\PerfilRequest;
 use App\alumnoAsig;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -97,4 +98,43 @@ class AlumnoAsigController extends Controller
     public function descargar($url){
         return response()->download(storage_path('app\\public\\'.$url));
     }
+
+    public function perfil()
+    {   
+        $id_alumno = Auth::id();
+      
+        $perfil = DB::table('img_user')                    
+                        ->select('nombre')
+                        ->where('user_id','=',$id_alumno)->get();
+        return view('admin.alumnosAsig.perfil')->with('perfil', $perfil);
+    }
+
+    public function perfil_store(PerfilRequest $request)
+    {   
+        //GUARDAR FOTO DE USUARIO
+    
+            $file = $request->file('image');
+            $name = 'imag_' . time() .'.' . $file->getClientOriginalExtension();
+            $path = public_path() . '/images_n/users';
+            $file->move($path, $name);
+       
+
+
+        $id_alumno = Auth::id();
+
+        $exitePerfil = DB::table('img_user')                    
+                        ->select('nombre')
+                        ->where('user_id','=',$id_alumno)->get();
+        if (count($exitePerfil) > 0 ){                
+            $res_save = DB::select("UPDATE img_user set nombre = '$name'  WHERE user_id = $id_alumno");
+        }else{
+            $res_save = DB::select("INSERT INTO img_user (nombre, user_id)values('$name', $id_alumno)");
+        }
+
+        $perfil = DB::table('img_user')                    
+                        ->select('nombre')
+                        ->where('user_id','=',$id_alumno)->get();
+        return view('admin.alumnosAsig.perfil')->with('perfil', $perfil);
+    }
+
 }

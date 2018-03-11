@@ -264,6 +264,19 @@ Auth::routes();
         'uses'  =>  'AlumnoAsigController@index',
         'as'    =>  'alumnosAsig.index'
     ]);
+
+    //Editar Perfil
+    Route::get('alumnoPerfil',[
+        'uses'  =>  'AlumnoAsigController@perfil',
+        'as'    =>  'alumnosAsig.perfil'
+    ]);
+    Route::post('alumnoPerfilStore',[
+        'uses'  =>  'AlumnoAsigController@perfil_store',
+        'as'    =>  'alumnosAsig.perfil_store'
+    ]);
+
+
+
     //Publicaciones para los alumnos
     Route::get('publicaciones/{id}',[
         'uses'  =>  'AlumnoAsigController@publicaciones',

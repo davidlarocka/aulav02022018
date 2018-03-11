@@ -23,6 +23,19 @@
 	background-color: white;
 	padding: 10px 10px;
 }
+/* MOBILE MODE */
+      @media (max-width:768px) {
+        .mensajes-bar{
+          display:none;
+          background-color: #00809d
+        }
+      }
+      @media (min-width:768px) {
+        .mensajes-bar{
+          background-color: #00809d
+        }
+      }
+
 </style>
 
 	<title>@yield('title') ~ San Nicolas Diacono</title>
@@ -41,7 +54,7 @@
 <body class="cover">
 
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top" style="background-color: #00809d">
+        <nav class="navbar navbar-default navbar-static-top mensajes-bar" style="background-color: #00809d">
             <div class="container">
                 <div class="navbar-header">
 
@@ -55,7 +68,7 @@
 <img src="{{ URL::to('/') }}/images_n/pizarra.jpg" class="" width="50" style="margin-top:10px " />
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: white">
-                       Aula Virtual
+                       Aula Virtual 
                     </a>
                     
                 </div>
