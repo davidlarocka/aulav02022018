@@ -8,14 +8,14 @@
             <!-- Subject Form Input -->
             <div class="form-group">
                 <label class="control-label">Asunto</label>
-                <input type="text" class="form-control" name="subject" placeholder="Asunto"
+                <input required type="text" class="form-control" name="subject" placeholder="Asunto"
                        value="{{ old('subject') }}">
             </div>
 
             <!-- Message Form Input -->
             <div class="form-group">
                 <label class="control-label">Mensaje</label>
-                <textarea name="message" class="form-control">{{ old('message') }}</textarea>
+                <textarea name="message" class="form-control" required>{{ old('message') }}</textarea>
             </div>
             <input type="hidden" class="form-control" name="id_proyecto" value="{{ $id }}">
             @if($users->count() > 0)

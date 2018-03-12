@@ -5,14 +5,6 @@
 
 @section('content')
 
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto" style="cursor:pointer">
-      <h4 class="panel-title" >
-        <a>Ingreso de nuevo proyecto</a>
-      </h4>
-    </div>
-
 @if(count($errors) > 0)
   <div class="alert alert-danger" role="alert">
     <ul>
@@ -22,6 +14,14 @@
     </ul>
   </div>
 @endif
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading" data-toggle="collapse" href="#enc_proyecto" style="cursor:pointer">
+      <h4 class="panel-title" >
+        <a>Ingreso de nuevo proyecto</a>
+      </h4>
+    </div>
 
     <div id="enc_proyecto" class="panel-collapse collapse">
       <div class="panel-body">

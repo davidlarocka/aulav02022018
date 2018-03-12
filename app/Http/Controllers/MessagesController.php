@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use DB;
+use Validator;
+use App\Http\Requests\MessagesRequest;
+
 class MessagesController extends Controller
 {
     /**
@@ -42,7 +45,7 @@ class MessagesController extends Controller
     public function show($id)
     {
         $proyecto = DB::table('proyectos')
-                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo','proyectos.id as id')
                     ->join('users','users.id','=','proyectos.id_profesor')
                     ->where('proyectos.id','=',$id)->get();        
             try {
@@ -151,7 +154,7 @@ class MessagesController extends Controller
         $id = $input['id_proyecto'];        
         //$threads = Thread::where('id_proyecto', '=', $id)->get();
         $proyecto = DB::table('proyectos')
-                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo')
+                    ->select('nombre_proyecto','descripcion','fecha_entrega','archivo','url','observaciones','name','primer_apellido','id_asignatura','id_grupo','proyectos.id as id')
                     ->join('users','users.id','=','proyectos.id_profesor')
                     ->where('proyectos.id','=',$id)->get();
         $profesores = DB::table('users')
@@ -168,7 +171,7 @@ class MessagesController extends Controller
                     ->where('proyectos.id','=',$id)->get();
         $userId = Auth::id();
         $thread->markAsRead($userId);
-        return view('admin.messenger.show', compact('thread','users','id','proyecto'));
+        return view('admin.messenger.show', compact('thread','users','id','proyecto','profesores'));
         //return redirect()->route('admin.messages.index', compact('threads','id'));
     }
     /**
@@ -203,6 +206,6 @@ class MessagesController extends Controller
         if (Input::has('recipients')) {
             $thread->addParticipant(Input::get('recipients'));
         }
-        return redirect()->route('messages.show', $id);
+        return redirect()->route('messages.show', $thread->id_proyecto);
     }
 }
