@@ -5,6 +5,26 @@
 @section('content')
 
 <style>
+.video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        line-height: 0;
+        video {
+            background-size: cover;
+            bottom: 0;
+            height: auto;
+            min-height: 100%;
+            min-width: 100%;
+            right: 0;
+            width: auto;
+        }
+        // .video {
+        // }
+    }
 .selector {
   position: absolute;
   left: 50%;
@@ -14,6 +34,14 @@
   margin-left: -70px;
 }
 </style>
+
+<!--<div class="video">
+  <video autoplay preload="auto" poster="./assets/img/poster.jpg" data-teaser="./assets/video/video2.mp4" playsinline autoplay muted loop>
+    <source src="./assets/video/video2.mp4" type="video/mp4">
+    <source src="{{ asset('plugins/css/main.css') }} " type="video/webm">
+  </video>
+</div>-->
+
 <div class="title"><h3 style="text-align: right;">{{ ucfirst($datos[0]->grupo) }}</h3></div>
 
 <div class="container">

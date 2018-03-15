@@ -15,11 +15,14 @@
 		<p><b>Vídeo: </b><a href="#" class="btn btn-success btn-sm video" data-video="{{ $proyecto[0]->url }}" data-toggle="modal" data-target="#videoModal"><i class="fa fa-file-video-o fa 2x"></i></a></p>
 	@endif
 	@if( $proyecto[0]->observaciones != '')
-		<p><b>Observaciones: </b>{{ ucfirst($proyecto[0]->observaciones) }}</p>
+		<p><b>Observaciones: </b>{{ ucfirst($proyecto[0]->observaciones) }} </p>
 	@endif
 	<br>
-	<a href="{!! url('admin/proyectos'); !!}/{{ $proyecto[0]->id_asignatura }},{{ $proyecto[0]->id_grupo }}">Volver</a><br>
-
+	@if( strtoupper(Auth::user()->type) =='PROFESOR' )
+		<a href="{!! url('admin/proyectos'); !!}/{{ $proyecto[0]->id_asignatura }},{{ $proyecto[0]->id_grupo }}">Volver</a><br>
+	@else
+		<a href="{!! url('admin/alumnoProyecto'); !!}/{{ $proyecto[0]->id_asignatura }},{{ $proyecto[0]->id_grupo }}">Volver</a><br>
+	@endif
 	<div class="container">
 	  @include('flash::message')
 	</div>	

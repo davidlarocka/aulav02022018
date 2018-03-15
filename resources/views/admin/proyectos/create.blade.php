@@ -57,7 +57,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Descripción</label>
                 <div class="col-lg-3">
-                  <input type="text" class="form-control" name="descripcion" id="descripcion" />
+                  <input type="text" class="form-control" name="descripcion" id="descripcion" required/>
                 </div>
               </div>              
               <div class="form-group">
